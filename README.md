@@ -44,13 +44,13 @@ Railsやjsを用いてビジュアルな設問が作成できたらと思いま�
 
 ## 設計書(ほぼ白紙)
 ER図  
-<>  
+<https://app.diagrams.net/#G1z1cflxcfQGZFKWsAFLgCXhxSzz5LynSB>  
 テーブル定義書  
 <>  
 アプリケーション詳細設計  
 <>  
 その他　WBS・メモなど  
-<https://docs.google.com/spreadsheets/d/1e-1cHC51VrCWVXmTA0An58Ol2edFsBBGnt6lnxIL8bU/edit#gid=1773513600>  
+<https://docs.google.com/spreadsheets/d/1K0TImPxRmrfA0d6jRZp6XMOi3gezkrE83g988vZ_nN0/edit#gid=1773513600>  
 
 ## チャレンジ要素一覧
 <https://docs.google.com/spreadsheets/d/1QZ0yRBBROrG_x4TVrdtMRbe-Fg3_euMU-0XSwDxjriM/edit#gid=0>
