@@ -50,8 +50,8 @@ Railsやjsを用いてビジュアルな設問が作成できたらと思いま�
   * <>
 * アプリケーション詳細設計
   * <https://docs.google.com/spreadsheets/d/1gt0_7H2x1fZQm0QYGcLEMBrqEkRq0FQXLj_4_9cA7VQ/edit#gid=0>
-* その他　WBS・メモなど
-  * <https://docs.google.com/spreadsheets/d/1K0TImPxRmrfA0d6jRZp6XMOi3gezkrE83g988vZ_nN0/edit#gid=1773513600>
+* WBS
+  * <https://docs.google.com/spreadsheets/d/1IBxEHepPj3wupFY0KuenWcz9uhX7Kd_AGxwJ79Z8lqo/edit#gid=1773513600>
 
 ## チャレンジ要素一覧
 <https://docs.google.com/spreadsheets/d/1QZ0yRBBROrG_x4TVrdtMRbe-Fg3_euMU-0XSwDxjriM/edit#gid=0>
@@ -64,5 +64,4 @@ Railsやjsを用いてビジュアルな設問が作成できたらと思いま�
 - IDE：Cloud9
 
 ## 使用素材
-- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
-- 使用しない場合は、使用素材の項目をREADMEから削除してください。
+- 使用検討中です。
