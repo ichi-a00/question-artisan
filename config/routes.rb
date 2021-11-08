@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     delete 'customer/sign_out' => 'customer/sessions#destroy', as: :destroy_customer_session
     get 'customer/sign_up' => 'customer/registrations#new', as: :new_customer_registration
     post 'customer/sign_up' => 'customer/registrations#create', as: :customer_registration
+    get 'customers/edit/password' => 'customer/registrations#edit', as: :edit_customer_registration
+    put 'customer/sign_up' => 'customer/registrations#update'
   end
 
   scope module: :customer do
@@ -38,8 +40,10 @@ Rails.application.routes.draw do
 
     resource :customers, only: [:edit, :update] do
       collection do
-        get 'my_page' => 'customers#show'
-        get '/' => 'customer#show'
+        get 'mypage' => 'customers#show'
+        get '/' => 'customers#show'
+        get 'unsubscribe'
+        patch 'withdraw'
       end
     end
     # resources :products, only: [:index, :show] do

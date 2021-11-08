@@ -1,2 +1,46 @@
-<h1>Customer::Customers#edit</h1>
-<p>Find me in app/views/customer/customers/edit.html.erb</p>
+<%= form_with model: current_customer, url: customers_path, local: true do |form| %>
+  <% if current_customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(current_customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% current_customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nickname %>
+    <%= form.text_field :nickname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image, "商品画像" %>
+    <%= form.attachment_field :image, placeholder: "プロフィール画像" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :introduction %>
+    <%= form.text_area :introduction %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+  <div class="actions">
+    <%= link_to "パスワードを変更する", edit_customer_registration_path, class:"btn btn-info" %>
+  </div>
+
+  <div class="actions">
+    <%= link_to "退会する", unsubscribe_customers_path, class:"btn btn-danger" %>
+  </div>
+
+<% end %>
