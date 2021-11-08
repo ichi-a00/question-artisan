@@ -5,6 +5,8 @@ class Customer < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
 
+  validates :nickname, uniqueness: true, length: { in: 1..20 }
+  validates :introduction, length: { maximum: 50 }
 
   attachment :image
 end
