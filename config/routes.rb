@@ -1,18 +1,13 @@
 Rails.application.routes.draw do
 
-  namespace :customer do
-    get 'homes/top'
-    get 'homes/ranking'
-  end
-  namespace :admin do
-    get 'homes/top'
-  end
   devise_for :admin, skip: [:registrations, :passwords], controllers: {
     sessions: 'admin/sessions'
   }
 
   namespace :admin do
     root to: 'homes#top'
+
+    resources :customers, except: [:new, :create, :destroy]
     # resources :orders, only: [:show, :update]
     # resources :order_details, only: [:update]
     # resources :customers, only: [:index, :show, :edit, :update]
@@ -41,6 +36,12 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get '/about' => 'homes#about'
 
+    resource :customers, only: [:edit, :update] do
+      collection do
+        get 'my_page' => 'customers#show'
+        get '/' => 'customer#show'
+      end
+    end
     # resources :products, only: [:index, :show] do
     #   collection do
     #     get 'search'

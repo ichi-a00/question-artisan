@@ -7,10 +7,10 @@
       </a>
     </h1>
     <% if admin_signed_in? %>
-      <p class="text-light">you are admin now.</p>
+      <div class="text-light">you are admin now.</div>
     <% end %>
     <% if customer_signed_in? %>
-      <p class="text-light"><%= current_customer.id %>さん</p>
+      <div class="text-light"><%= current_customer.id %>さん</div>
     <% end %>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -18,8 +18,11 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
         <li><%= link_to 'ranks', ranks_path, class: 'fas fa-cookie nav-link text-light' %></li>
-        <li><%= link_to 'new_rank', new_rank_path, class: 'fas fa-user nav-link text-light' %></li>
+        <li><%= link_to 'adminログイン', new_admin_session_path, class: 'fas fa-user nav-link text-light' %></li>
         <li><%= link_to 'adminログアウト', destroy_admin_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link text-light' %></li>
+        <li><%= link_to 'adminカスタマ一覧', admin_customers_path, class: 'fas fa-poo nav-link text-light' %></li>
+        <li><%= link_to 'customerログイン', new_customer_session_path, class: 'fas fa-blog nav-link text-light' %></li>
+        <li><%= link_to 'customerログアウト', destroy_customer_session_path, method: :delete, class: 'fas fa-bug nav-link text-light' %></li>
       </ul>
     </div>
   </nav>
