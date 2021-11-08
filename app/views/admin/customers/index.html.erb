@@ -11,6 +11,7 @@
       <th>email</th>
       <th>rank</th>
       <th>exp</th>
+      <th>is_valid</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -24,6 +25,7 @@
         <td><%= customer.email %></td>
         <td><%= customer.rank %></td>
         <td><%= customer.experience_point %></td>
+        <td><%= customer.is_valid %></td>
         <td><%= link_to 'Show', admin_customer_path(customer) %></td>
         <td><%= link_to 'Edit', edit_admin_customer_path(customer) %></td>
       </tr>

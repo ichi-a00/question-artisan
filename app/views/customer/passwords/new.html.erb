@@ -1,7 +1,8 @@
 <h2>Forgot your password?</h2>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "customers/shared/error_messages", resource: resource %>
+<%= form_with model: current_customer, url: customer_password_path, local: true do |f| %>
+
+  <!--%= render 'customer/shared/error_messages', resource: f.object %-->
 
   <div class="field">
     <%= f.label :email %><br />
@@ -13,4 +14,4 @@
   </div>
 <% end %>
 
-<%= render "customers/shared/links" %>
+<%= render "customer/shared/links" %>
