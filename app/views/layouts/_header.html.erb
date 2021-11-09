@@ -21,9 +21,11 @@
         <li><%= link_to 'adminログイン', new_admin_session_path, class: 'fas fa-user nav-link text-light' %></li>
         <li><%= link_to 'adminログアウト', destroy_admin_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link text-light' %></li>
         <li><%= link_to 'adminカスタマ一覧', admin_customers_path, class: 'fas fa-poo nav-link text-light' %></li>
+        <li><%= link_to 'adminQ', admin_questions_path, class: 'fas fa-check nav-link text-light' %></li>
         <li><%= link_to 'customerログイン', new_customer_session_path, class: 'fas fa-blog nav-link text-light' %></li>
         <li><%= link_to 'customerログアウト', destroy_customer_session_path, method: :delete, class: 'fas fa-bug nav-link text-light' %></li>
         <li><%= link_to 'カスタママイページ', mypage_customers_path, class: 'fas fa-sync nav-link text-light' %></li>
+        <li><%= link_to 'カスタマQ', questions_path, class: 'fas fa-bullhorn nav-link text-light' %></li>
       </ul>
     </div>
   </nav>

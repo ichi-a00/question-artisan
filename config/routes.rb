@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
 
     resources :customers, except: [:new, :create, :destroy]
-    # resources :orders, only: [:show, :update]
+    resources :questions
     # resources :order_details, only: [:update]
     # resources :customers, only: [:index, :show, :edit, :update]
     # resources :products, except: [:destroy] do
@@ -46,11 +46,8 @@ Rails.application.routes.draw do
         patch 'withdraw'
       end
     end
-    # resources :products, only: [:index, :show] do
-    #   collection do
-    #     get 'search'
-    #   end
-    # end
+    resources :questions
+
     # resources :cart_products, only: [:index, :create, :update, :destroy] do
     #   collection do
     #     delete 'destroy_all'
