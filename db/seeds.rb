@@ -11,3 +11,12 @@ admin = Admin.new(
   password: "tester123")
 
 admin.save!
+
+admin_customer = Customer.new(
+  id: 0,
+  nickname: "admin",
+  email: "admin@admin",
+  password: "adminsan"
+  )
+
+admin_customer.save!

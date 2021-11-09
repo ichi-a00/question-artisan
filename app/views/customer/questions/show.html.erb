@@ -1,0 +1,42 @@
+<p>
+  <strong>Customer:</strong>
+  <%= @question.customer.nickname %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @question.title %>
+</p>
+
+<p>
+  <strong>Sentence:</strong>
+  <%= @question.sentence %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @question.format %>
+</p>
+
+<p>
+  <strong>Explanation:</strong>
+  <%= @question.explanation %>
+</p>
+
+<p>
+  <strong>Question image:</strong>
+  <%= attachment_image_tag @question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+</p>
+
+<p>
+  <strong>Answered time:</strong>
+  <%= @question.answered_time %>
+</p>
+
+<p>
+  <strong>Correct answered time:</strong>
+  <%= @question.correct_answered_time %>
+</p>
+
+<%= link_to 'Edit', edit_question_path(@question) %> |
+<%= link_to 'Back', questions_path %>

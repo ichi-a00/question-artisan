@@ -5,8 +5,12 @@ class Customer < ApplicationRecord
   devise :registerable, :recoverable, :rememberable, :validatable
 
 
-  validates :nickname, uniqueness: true, length: { in: 1..20 }
+  validates :nickname, uniqueness: true, length: { in: 2..20 }
   validates :introduction, length: { maximum: 50 }
+  validates :rank, presence: true, numericality: { only_integer: true }
+  validates :experience_point, presence: true, numericality: { only_integer: true }
 
   attachment :image
+
+  has_many :questions
 end

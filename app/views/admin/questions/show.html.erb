@@ -1,0 +1,47 @@
+<p>
+  <strong>Customer:</strong>
+  <%= @question.customer.nickname %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @question.title %>
+</p>
+
+<p>
+  <strong>Sentence:</strong>
+  <%= @question.sentence %>
+</p>
+
+<p>
+  <strong>Format:</strong>
+  <%= @question.format %>
+</p>
+
+<p>
+  <strong>Explanation:</strong>
+  <%= @question.explanation %>
+</p>
+
+<p>
+  <strong>Question image:</strong>
+  <%= @question.question_image_id %>
+</p>
+
+<p>
+  <strong>Answer image:</strong>
+  <%= @question.answer_image_id %>
+</p>
+
+<p>
+  <strong>Answered time:</strong>
+  <%= @question.answered_time %>
+</p>
+
+<p>
+  <strong>Correct answered time:</strong>
+  <%= @question.correct_answered_time %>
+</p>
+
+<%= link_to 'Edit', edit_admin_question_path(@question) %> |
+<%= link_to 'Back', admin_questions_path %>

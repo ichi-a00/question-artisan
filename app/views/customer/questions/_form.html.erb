@@ -1,0 +1,47 @@
+<%= form_with(model: question, local: true) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :customer_id %>
+    <%= form.hidden_field :customer_id, :value => current_customer.id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sentence %>
+    <%= form.text_area :sentence %>
+  </div>
+
+  <div class="field">
+    <%= form.label :format %>
+    <%= form.number_field :format %>
+  </div>
+
+  <div class="field">
+    <%= form.label :explanation %>
+    <%= form.text_area :explanation %>
+  </div>
+
+  <div class="field">
+    <%= form.label :question_image %>
+    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
