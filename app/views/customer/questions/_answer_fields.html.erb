@@ -1,11 +1,10 @@
 <div class="nested-fields">
-
   <!--問題形式によって分岐-->
   <% case question_format
       when "choose_one" %>
 
         <%= f.label :is_correct %>
-        <%= radio_button f, :is_correct, true %>
+        <%= f.check_box :is_correct, {onclick: "radioDeselection(this)", class: "radio_list", tabindex: 1}, 1, 0  %>
 
         <%= f.label :content %>
         <%= f.text_field :content %>
@@ -13,7 +12,7 @@
     <% when "choose_multi" %>
 
         <%= f.label :is_correct %>
-        <%= f.check_box :is_correct, {}, true, false %>
+        <%= f.check_box :is_correct, {tabindex: 1}, 1, 0 %>
 
         <%= f.label :content %>
         <%= f.text_field :content %>

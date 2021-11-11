@@ -18,6 +18,7 @@ class Customer::QuestionsController < ApplicationController
   # GET /questions/new
   def new
     @question = Question.new
+    @question.answers.build
   end
 
   # GET /questions/1/edit
@@ -27,6 +28,7 @@ class Customer::QuestionsController < ApplicationController
   # POST /questions
   def create
     @question = Question.new(question_params)
+    #inding.pry
     if @question.save
       redirect_to @question, notice: "Question was successfully created."
     else
@@ -36,6 +38,7 @@ class Customer::QuestionsController < ApplicationController
 
   # PATCH/PUT /questions/1
   def update
+    #binding.pry
     if @question.update(question_params)
       redirect_to @question, notice: "Question was successfully updated."
     else
@@ -52,10 +55,8 @@ class Customer::QuestionsController < ApplicationController
 
   def answer_format
     @question = Question.new
+    @question.answers.build
     @format = params[:format]
-    #@form = params[:form]
-    #binding.pry
-    #render :new
   end
 
   private

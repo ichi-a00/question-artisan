@@ -30,12 +30,19 @@
     <%= form.hidden_field :format, :value => format %>
   </div>
 
-  <div id="answers">
-    <%= link_to_add_association '選択肢の追加', form, :answers, data: { association_insertion_method: 'append' }, render_options: {locals: { question_format: format }} %>
-    <%= form.fields_for :answers do |answer| %>
-      <%= render "answer_fields", f: answer, question_format: format %>
-    <% end %>
-  </div>
+  <% case format
+      when "bool" %>
+
+      <% when "writing" %>
+
+      <% else %>
+        <div id="answers">
+          <%= link_to_add_association '選択肢の追加', form, :answers, data: { association_insertion_method: 'append' }, render_options: {locals: { question_format: format }} %>
+          <%= form.fields_for :answers do |answer| %>
+            <%= render "answer_fields", f: answer, question_format: format %>
+          <% end %>
+        </div>
+  <% end %>
 
   <div class="field">
     <%= form.label :explanation %>
