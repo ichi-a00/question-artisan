@@ -2,7 +2,9 @@ class Customer::QuestionsController < ApplicationController
   before_action :set_question!, only: %i[ show edit update destroy ]
   before_action :authenticate_customer!, except: [:index, :show]
   before_action :ensure_correct_customer!, only: [:edit, :update, :destroy]
-  before_action :set_format!, only: [:new, :create, :edit, :update]
+  before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
+
+
 
   # GET /questions
   def index
@@ -47,6 +49,15 @@ class Customer::QuestionsController < ApplicationController
     redirect_to questions_url, notice: "Question was successfully destroyed."
   end
 
+
+  def answer_format
+    @question = Question.new
+    @format = params[:format]
+    #@form = params[:form]
+    #binding.pry
+    #render :new
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question!
@@ -55,7 +66,18 @@ class Customer::QuestionsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def question_params
-      params.require(:question).permit(:customer_id, :title, :sentence, :format, :explanation, :question_image, :answer_image, :answered_time, :correct_answered_time)
+      params.require(:question).permit(
+        :customer_id,
+        :title,
+        :sentence,
+        :format,
+        :explanation,
+        :question_image,
+        :answer_image,
+        :answered_time,
+        :correct_answered_time,
+        answers_attributes: [:id, :content, :is_correct, :order, :_destroy]
+        )
     end
 
     def ensure_correct_customer!

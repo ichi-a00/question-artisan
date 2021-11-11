@@ -1,47 +1,11 @@
-<%= form_with(model: question, local: true) do |form| %>
-  <% if question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
-      <ul>
-      <% question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
+<div class="field">
+  <% formats.each do |f| %>
+    <!-- sale_status[0]が"sale"とか"sold_out"で、sale_status[1]が"販売中"とか"売切れ"-->
+    <!--%= form.radio_button :format, f[0], class: "mr-1 ml-3" %>%= f[0] %>-->
+    <%= link_to f[0], send("answer_format_questions_path", format: f[0]), remote: true %>
   <% end %>
+</div>
 
-  <div class="field">
-    <%= form.label :customer_id %>
-    <%= form.hidden_field :customer_id, :value => current_customer.id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= form.label :sentence %>
-    <%= form.text_area :sentence %>
-  </div>
-
-  <div class="field">
-    <%= form.label :format %>
-    <%= form.number_field :format %>
-  </div>
-
-  <div class="field">
-    <%= form.label :explanation %>
-    <%= form.text_area :explanation %>
-  </div>
-
-  <div class="field">
-    <%= form.label :question_image %>
-    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+<div id="question_answer">
+  <%= render "question_answer", question: question, format: question.format %>
+</div>

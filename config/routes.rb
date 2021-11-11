@@ -56,8 +56,11 @@ Rails.application.routes.draw do
         patch 'withdraw'
       end
     end
-    resources :questions
-
+    resources :questions do
+      collection do
+        get "answer_format" => 'questions#answer_format', as: :answer_format
+      end
+    end
     # resources :cart_products, only: [:index, :create, :update, :destroy] do
     #   collection do
     #     delete 'destroy_all'

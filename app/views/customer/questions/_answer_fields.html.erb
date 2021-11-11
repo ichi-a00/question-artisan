@@ -1,0 +1,28 @@
+<div class="nested-fields">
+
+  <!--問題形式によって分岐-->
+  <% case question_format
+      when "choose_one" %>
+
+        <%= f.label :is_correct %>
+        <%= radio_button f, :is_correct, true %>
+
+        <%= f.label :content %>
+        <%= f.text_field :content %>
+
+    <% when "choose_multi" %>
+
+        <%= f.label :is_correct %>
+        <%= f.check_box :is_correct, {}, true, false %>
+
+        <%= f.label :content %>
+        <%= f.text_field :content %>
+
+    <% else %>
+
+        ぬこ
+
+  <% end %>
+
+  <%= link_to_remove_association "削除", f %>
+</div>
