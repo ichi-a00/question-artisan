@@ -75,6 +75,7 @@ gem 'font-awesome-sass', '~> 5.13'
 gem 'pry-byebug'
 gem 'rspec-rails'
 gem 'enum_help'
+gem "cocoon"
 
 group :production do
   gem 'mysql2'
