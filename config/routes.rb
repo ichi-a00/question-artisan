@@ -11,7 +11,7 @@ Rails.application.routes.draw do
     resources :customers, except: [:new, :create, :destroy]
     resources :questions do
       member do
-        resources :answers, only: [:create, :update, :destroy]
+        resources :answers, only: [:edit, :create, :update, :destroy]
       end
     end
     # resources :order_details, only: [:update]
