@@ -58,40 +58,45 @@
 
 <table>
   <thead>
-    <th>答え候補</th>
-    <th>正解か？</th>
+    <th>★</th>
+    <th>選択肢</th>
     <th>順番</th>
     <th></th>
     <th></th>
   </thead>
   <tbody>
     <% @question.answers.each do |answer| %>
-      <%= form_with model: [:admin, answer], local: true do |aform| %>
-        <tr>
-          <td><%= aform.text_field :content %></td>
-          <td><%= aform.text_field :is_correct %></td>
-          <td><%= aform.number_field :order %></td>
-          <!--<td>%= link_to 'Update', admin_answer_path(answer), method: :patch %></td>-->
-          <td><%= aform.submit %></td>
+      <tr>
+        <td>
+          <% if answer.is_correct %>
+          ★
+          <% end %>
+        </td>
+        <td><%= answer.content %></td>
 
-          <td><%= link_to 'Destroy', admin_answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        </tr>
-      <% end %>
+        <td><%= answer.order %></td>
+        <td><%= link_to 'Edit', edit_admin_answer_path(answer) %></td>
+        <td><%= link_to 'Destroy', admin_answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
     <% end %>
   </tbody>
 </table>
+<p>add</p>
     <%= form_with model: [:admin, Answer.new], local: true do |aform| %>
       <%= aform.hidden_field :question_id, :value => @question.id %>
 <table>
   <tbody>
       <tr>
         <td>
-          <%= aform.text_field :content %>
-        </td>
-        <td>
+          <%= aform.label :is_correct %>
           <%= aform.text_field :is_correct %>
         </td>
         <td>
+          <%= aform.label :content %>
+          <%= aform.text_field :content %>
+        </td>
+        <td>
+          <%= aform.label :order %>
           <%= aform.number_field :order %>
         </td>
         <td>
