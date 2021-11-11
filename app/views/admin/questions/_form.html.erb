@@ -27,18 +27,21 @@
   </div>
 
   <div class="field">
+    <%= form.label :question_image %>
+    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
+  </div>
+
+  <div class="field">
     <%= form.label :format %>
-    <%= form.number_field :format %>
+    <% formats.each do |f| %>
+      <!-- sale_status[0]が"sale"とか"sold_out"で、sale_status[1]が"販売中"とか"売切れ"-->
+      <%= form.radio_button :format, f[0], class: "mr-1 ml-3" %><%= f[0] %>
+    <% end %>
   </div>
 
   <div class="field">
     <%= form.label :explanation %>
     <%= form.text_area :explanation %>
-  </div>
-
-  <div class="field">
-    <%= form.label :question_image %>
-    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
   </div>
 
   <div class="actions">

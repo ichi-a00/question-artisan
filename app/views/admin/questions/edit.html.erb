@@ -23,7 +23,10 @@
 
   <div class="field">
     <%= form.label :format %>
-    <%= form.number_field :format %>
+    <% @formats.each do |f| %>
+      <!-- sale_status[0]が"sale"とか"sold_out"で、sale_status[1]が"販売中"とか"売切れ"-->
+      <%= form.radio_button :format, f[0], class: "mr-1 ml-3" %><%= f[0] %>
+    <% end %>
   </div>
 
   <div class="field">
@@ -49,4 +52,53 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+<% end %>
+
+<hr>
+
+<table>
+  <thead>
+    <th>答え候補</th>
+    <th>正解か？</th>
+    <th>順番</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <% @question.answers.each do |answer| %>
+      <%= form_with model: [:admin, answer], local: true do |aform| %>
+        <tr>
+          <td><%= aform.text_field :content %></td>
+          <td><%= aform.text_field :is_correct %></td>
+          <td><%= aform.number_field :order %></td>
+          <!--<td>%= link_to 'Update', admin_answer_path(answer), method: :patch %></td>-->
+          <td><%= aform.submit %></td>
+
+          <td><%= link_to 'Destroy', admin_answer_path(answer), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+    <%= form_with model: [:admin, Answer.new], local: true do |aform| %>
+      <%= aform.hidden_field :question_id, :value => @question.id %>
+<table>
+  <tbody>
+      <tr>
+        <td>
+          <%= aform.text_field :content %>
+        </td>
+        <td>
+          <%= aform.text_field :is_correct %>
+        </td>
+        <td>
+          <%= aform.number_field :order %>
+        </td>
+        <td>
+          <%= aform.submit %>
+        </td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
