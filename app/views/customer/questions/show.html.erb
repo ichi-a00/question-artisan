@@ -1,4 +1,9 @@
 <p>
+  <strong>Question image:</strong>
+  <%= attachment_image_tag @question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+</p>
+
+<p>
   <strong>Customer:</strong>
   <%= @question.customer.nickname %>
 </p>
@@ -19,13 +24,27 @@
 </p>
 
 <p>
+  <strong>Answers:</strong>
+  <% @question.answers.each do |a| %>
+    【 <%= a.content %> 】
+  <% end %>
+</p>
+
+<p>
+  <strong>Correct_Answers:</strong>
+  <% @question.correct_answers.each do |a| %>
+    【 <%= a.content %> 】
+  <% end %>
+</p>
+
+<p>
   <strong>Explanation:</strong>
   <%= @question.explanation %>
 </p>
 
 <p>
-  <strong>Question image:</strong>
-  <%= attachment_image_tag @question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+  <strong>Answer image:</strong>
+  <%= attachment_image_tag @question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
 </p>
 
 <p>

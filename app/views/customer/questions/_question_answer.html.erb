@@ -1,4 +1,4 @@
-<%= format %>
+<%= question.format %>
 <%= form_with(model: question, local: true) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
@@ -27,31 +27,42 @@
   </div>
 
   <div class="field">
-    <%= form.hidden_field :format, :value => format %>
+    <%= form.label :question_image %>
+    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
   </div>
 
-  <% case format
-      when "bool" %>
+  <div class="field">
+    <%= form.hidden_field :format, :value => question.format %>
+  </div>
+
+  <div id="answers">
+    <% case question.format
+         when "bool" %>
+          <%= form.fields_for :answers do |answer| %>
+            <%= render "answer_fields", f: answer, question_format: question.format %>
+          <% end %>
 
       <% when "writing" %>
+           <%= form.fields_for :answers do |answer| %>
+            <%= render "answer_fields", f: answer, question_format: question.format %>
+          <% end %>
 
       <% else %>
-        <div id="answers">
-          <%= link_to_add_association '選択肢の追加', form, :answers, data: { association_insertion_method: 'append' }, render_options: {locals: { question_format: format }} %>
+          <%= link_to_add_association '選択肢の追加', form, :answers, data: { association_insertion_method: 'append' }, render_options: {locals: { question_format: question.format }} %>
           <%= form.fields_for :answers do |answer| %>
-            <%= render "answer_fields", f: answer, question_format: format %>
+            <%= render "answer_fields", f: answer, question_format: question.format %>
           <% end %>
-        </div>
-  <% end %>
+    <% end %>
+  </div>
 
   <div class="field">
     <%= form.label :explanation %>
-    <%= form.text_area :explanation %>
+    <%= form.text_area :explanation, placeholder: "解説" %>
   </div>
 
   <div class="field">
-    <%= form.label :question_image %>
-    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
+    <%= form.label :answer_image %>
+    <%= form.attachment_field :answer_image, placeholder: "解説画像" %>
   </div>
 
   <div class="actions">

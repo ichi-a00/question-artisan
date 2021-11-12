@@ -3,6 +3,7 @@ class Customer::QuestionsController < ApplicationController
   before_action :authenticate_customer!, except: [:index, :show]
   before_action :ensure_correct_customer!, only: [:edit, :update, :destroy]
   before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
+  before_action :initialize_answer, only: [:new, :answer_format]
 
 
 
@@ -17,8 +18,6 @@ class Customer::QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    @question = Question.new
-    @question.answers.build
   end
 
   # GET /questions/1/edit
@@ -52,12 +51,9 @@ class Customer::QuestionsController < ApplicationController
     redirect_to questions_url, notice: "Question was successfully destroyed."
   end
 
-
   def answer_format
-    @question = Question.new
-    @question.answers.build
-    @format = params[:format]
   end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -91,5 +87,26 @@ class Customer::QuestionsController < ApplicationController
 
     def set_format!
       @formats = Question.formats
+    end
+
+    def initialize_answer
+      @question = Question.new
+
+      if params[:format]
+        @question.format = params[:format]
+      else
+        @question.format = "bool"
+      end
+
+      case @question.format
+      when "bool"
+
+        @question.answers.build(content: "○", is_correct: true)
+        @question.answers.build(content: "×", is_correct: false)
+
+      else
+        @question.answers.build(is_correct: true)
+      end
+
     end
 end
