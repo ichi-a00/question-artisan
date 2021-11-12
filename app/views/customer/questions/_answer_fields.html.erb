@@ -1,27 +1,45 @@
 <div class="nested-fields">
   <!--問題形式によって分岐-->
   <% case question_format
-      when "choose_one" %>
+       when "bool" %>
 
+        <!-- ○×: チェックしたらほかが外れるjs、選択肢は増減できない　-->
         <%= f.label :is_correct %>
-        <%= f.check_box :is_correct, {onclick: "radioDeselection(this)", class: "radio_list", tabindex: 1}, 1, 0  %>
+        <%= f.check_box :is_correct, {onclick: "choose_one(this)", class: "choose_one_list", tabindex: 1}, 1, 0  %>
 
         <%= f.label :content %>
         <%= f.text_field :content %>
 
+
+    <% when "choose_one" %>
+
+        <!-- 一つを選ぶ形式: チェックしたらほかが外れるjs、選択肢は増減できる　-->
+        <%= f.label :is_correct %>
+        <%= f.check_box :is_correct, {onclick: "choose_one(this)", class: "choose_one_list", tabindex: 1}, 1, 0  %>
+
+        <%= f.label :content %>
+        <%= f.text_field :content %>
+
+        <%= link_to_remove_association "削除", f %>
+
     <% when "choose_multi" %>
 
+        <!-- 複数を選ぶ形式: 普通のチェックボックス、選択肢は増減できる　-->
         <%= f.label :is_correct %>
         <%= f.check_box :is_correct, {tabindex: 1}, 1, 0 %>
 
         <%= f.label :content %>
         <%= f.text_field :content %>
 
-    <% else %>
+        <%= link_to_remove_association "削除", f %>
 
-        ぬこ
+    <% when "writing" %>
+
+        <!-- 記述式: 答えはひとつだけ、選択肢は増減できない　-->
+        <%= f.hidden_field :is_correct, :value => true %>
+
+        <%= f.label :content, "correct_answer" %>
+        <%= f.text_field :content %>
 
   <% end %>
-
-  <%= link_to_remove_association "削除", f %>
 </div>

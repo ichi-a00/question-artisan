@@ -27,4 +27,8 @@ class Question < ApplicationRecord
 
   #同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
+
+  def correct_answers
+    self.answers.where(is_correct: true)
+  end
 end
