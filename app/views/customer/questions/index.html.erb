@@ -38,4 +38,5 @@
 
 <br>
 
-<%= link_to 'New Question', new_question_path %>
+<%= link_to 'New Question', new_question_path %> |
+<%= link_to 'Randam Artisan', artisan_question_path(@questions.offset(rand(@questions.count)).first) %>

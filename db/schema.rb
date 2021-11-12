@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_09_090133) do
+ActiveRecord::Schema.define(version: 2021_11_12_071433) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -61,7 +61,7 @@ ActiveRecord::Schema.define(version: 2021_11_09_090133) do
     t.string "question_image_id", default: "", null: false
     t.string "answer_image_id", default: "", null: false
     t.integer "answered_time", default: 0, null: false
-    t.string "correct_answered_time", default: "0", null: false
+    t.integer "correct_answered_time", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -69,6 +69,15 @@ ActiveRecord::Schema.define(version: 2021_11_09_090133) do
   create_table "ranks", force: :cascade do |t|
     t.integer "rank"
     t.integer "experience_point"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "results", force: :cascade do |t|
+    t.integer "customer_id", null: false
+    t.integer "question_id", null: false
+    t.integer "trial_count", default: 0, null: false
+    t.boolean "is_cleared", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

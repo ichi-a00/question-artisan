@@ -1,0 +1,13 @@
+
+<p>問題：<%= @question.sentence %></p>
+
+
+<%= form_with url: result_question_path, local: true do |f| %>
+<p>選択肢</p>
+<ul>
+  <li><%= f.collection_check_boxes :your_answers, @question.answers.all, :id, :content %></li>
+</ul>
+<%= f.submit %>
+<% end %>
+
+<%= link_to 'Back', question_path(@question) %>

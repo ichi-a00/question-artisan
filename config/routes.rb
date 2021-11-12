@@ -60,6 +60,10 @@ Rails.application.routes.draw do
       collection do
         get "answer_format" => 'questions#answer_format', as: :answer_format
       end
+      member do
+        get "artisan" => 'questions#artisan', as: :artisan
+        post "result" => 'questions#result', as: :result
+      end
     end
     # resources :cart_products, only: [:index, :create, :update, :destroy] do
     #   collection do

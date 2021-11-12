@@ -1,11 +1,9 @@
 class Customer::QuestionsController < ApplicationController
-  before_action :set_question!, only: %i[ show edit update destroy ]
-  before_action :authenticate_customer!, except: [:index, :show]
+  before_action :set_question!, only: %i[ show edit update destroy artisan result ]
+  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result]
   before_action :ensure_correct_customer!, only: [:edit, :update, :destroy]
   before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
   before_action :initialize_answer, only: [:new, :answer_format]
-
-
 
   # GET /questions
   def index
@@ -52,6 +50,26 @@ class Customer::QuestionsController < ApplicationController
   end
 
   def answer_format
+  end
+
+  def artisan
+  end
+
+  def result
+    @your_answers = params[:your_answers]
+    @your_answers.shift
+    @your_answers.map!{|x| x.to_i}
+    #binding.pry
+
+    if @your_answers == @question.correct_answers.ids
+      @question.correct_answered_time += 1
+    end
+
+    @question.answered_time += 1
+
+    @question.save
+
+
   end
 
 

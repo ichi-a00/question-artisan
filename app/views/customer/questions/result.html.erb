@@ -1,0 +1,9 @@
+your answer：<%= @your_answers %>
+
+<% if @your_answers == @question.correct_answers.ids %>
+  <p>正解!!</p>
+<% else %>
+  <p>残念^^^^</p>
+<% end %>
+
+<%= link_to 'Back', artisan_question_path(@question.id) %>
