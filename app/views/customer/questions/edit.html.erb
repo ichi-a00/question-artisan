@@ -4,4 +4,5 @@
   <%= render "question_answer", question: @question %>
 </div>
 
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Back', questions_path %> |
+<%= link_to 'Destroy', @question, method: :delete, data: { confirm: 'Are you sure?' } %>

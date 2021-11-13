@@ -24,6 +24,7 @@ class Question < ApplicationRecord
 
   belongs_to :customer
   has_many :answers, dependent: :destroy
+  has_many :results, dependent: :destroy
 
   #同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
@@ -31,4 +32,9 @@ class Question < ApplicationRecord
   def correct_answers
     self.answers.where(is_correct: true)
   end
+
+  def result?(customer)
+    results.where(customer_id: customer.id).exists?
+  end
+
 end
