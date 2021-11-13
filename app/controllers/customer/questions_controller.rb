@@ -55,20 +55,62 @@ class Customer::QuestionsController < ApplicationController
   def artisan
   end
 
+  #too fat
   def result
+    #回答セット
     @your_answers = params[:your_answers]
-    @your_answers.shift
-    @your_answers.map!{|x| x.to_i}
-    #binding.pry
+    @correct = false
 
-    if @your_answers == @question.correct_answers.ids
-      @question.correct_answered_time += 1
+    #回答判定
+    if  @question.format == "writing"
+      if @question.correct_answers.where(content:"#{@your_answers}").exists?
+        @correct = true
+      end
+    else
+      #バグ? collection_check_boxesで送ると最初に""がつくから消す。
+      @your_answers.shift
+      @your_answers.map!{|x| x.to_i}
+
+      if @your_answers == @question.correct_answers.ids
+        @correct = true
+      end
     end
 
+    #回答数更新
+    if @correct
+      @question.correct_answered_time += 1
+    end
     @question.answered_time += 1
+    @question.save!
 
-    @question.save
+    #ユーザ登録済みなら、クリア状況と経験値更新
+    if customer_signed_in?
+      #クリア状況
+      if @question.result?(current_customer)
+        result = current_customer.results.find_by(question_id: @question.id)
+      else
+        result = current_customer.results.new(question_id: @question.id)
+      end
+      result.trial_count += 1
+      if @correct
+        result.is_cleared = true
+      end
+      result.save!
 
+      #解く側の経験値
+      if @correct
+        current_customer.experience_point += ENV["CORRECT_EXP"].to_i
+      else
+        current_customer.experience_point += ENV["INCORRECT_EXP"].to_i
+      end
+      current_customer.save!
+
+      #解かれた側の経験値
+      if current_customer != @question.customer
+        @question.customer.experience_point += ENV["ANSWERED_EXP"].to_i
+        @question.customer.save!
+      end
+    end
 
   end
 
@@ -109,22 +151,17 @@ class Customer::QuestionsController < ApplicationController
 
     def initialize_answer
       @question = Question.new
-
       if params[:format]
         @question.format = params[:format]
       else
         @question.format = "bool"
       end
-
       case @question.format
       when "bool"
-
         @question.answers.build(content: "○", is_correct: true)
         @question.answers.build(content: "×", is_correct: false)
-
       else
         @question.answers.build(is_correct: true)
       end
-
     end
 end

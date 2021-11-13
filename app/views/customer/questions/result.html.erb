@@ -1,11 +1,17 @@
 your answer：<%= @your_answers %>
 
-<% if @your_answers == @question.correct_answers.ids %>
+<% if @correct %>
   <p>正解!!</p>
+  <% if customer_signed_in? %>
+    <p>経験値を<%= ENV["CORRECT_EXP"] %>獲得</p>
+    <p>現在の経験値：<%= current_customer.experience_point %></p>
+  <% end %>
 <% else %>
   <p>残念^^^^</p>
+    <% if customer_signed_in? %>
+    <p>経験値を<%= ENV["INCORRECT_EXP"] %>獲得</p>
+    <p>現在の経験値：<%= current_customer.experience_point %></p>
+  <% end %>
 <% end %>
-
-経験値を獲得
 
 <%= link_to 'Back', artisan_question_path(@question.id) %>
