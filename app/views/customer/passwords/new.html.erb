@@ -1,0 +1,17 @@
+<h2>Forgot your password?</h2>
+
+<%= form_with model: current_customer, url: customer_password_path, local: true do |f| %>
+
+  <!--%= render 'customer/shared/error_messages', resource: f.object %-->
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Send me reset password instructions" %>
+  </div>
+<% end %>
+
+<%= render "customer/shared/links" %>

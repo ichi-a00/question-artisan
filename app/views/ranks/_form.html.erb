@@ -1,0 +1,27 @@
+<%= form_with(model: rank, local: true) do |form| %>
+  <% if rank.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(rank.errors.count, "error") %> prohibited this rank from being saved:</h2>
+
+      <ul>
+      <% rank.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :rank %>
+    <%= form.number_field :rank %>
+  </div>
+
+  <div class="field">
+    <%= form.label :experience_point %>
+    <%= form.number_field :experience_point %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

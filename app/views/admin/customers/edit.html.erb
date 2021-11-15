@@ -1,0 +1,55 @@
+<%= form_with model:[:admin, @customer], local: true do |form| %>
+  <% if @customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+      <% @customer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nickname %>
+    <%= form.text_field :nickname %>
+  </div>
+
+  <div class="field">
+    <%= form.label :image, "商品画像" %>
+    <%= form.attachment_field :image, placeholder: "プロフィール画像" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :introduction %>
+    <%= form.text_area :introduction %>
+  </div>
+
+  <div class="field">
+    <%= form.label :rank %>
+    <%= form.number_field :rank %>
+  </div>
+
+  <div class="field">
+    <%= form.label :experience_point %>
+    <%= form.number_field :experience_point %>
+  </div>
+
+  <div class="field">
+    <%= form.label :is_valid, '会員ステータス', class: 'col-md-3 col-form-label' %>
+
+    <div class="form-check mx-3">
+      <%= form.radio_button :is_valid, true, class: "form-check-input" %>
+      <%= form.label :is_valid, "有効", value: :true, class: "form-check-label" %>
+    </div>
+    <div class="form-check mx-3">
+      <%= form.radio_button :is_valid, false, class: "form-check-input" %>
+      <%= form.label :is_valid, "退会", value: :false, class: "form-check-label"%>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

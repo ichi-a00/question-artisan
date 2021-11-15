@@ -1,0 +1,37 @@
+<p>
+  <strong>id:</strong>
+  <%= @customer.id %>
+</p>
+
+<p>
+  <strong>image:</strong>
+  <%= attachment_image_tag @customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+</p>
+
+<p>
+  <strong>nickname:</strong>
+  <%= @customer.nickname %>
+</p>
+
+<p>
+  <strong>introduction:</strong>
+  <%= @customer.introduction %>
+</p>
+
+<p>
+  <strong>rank:</strong>
+  <%= @customer.rank %>
+</p>
+
+<p>
+  <strong>Experience point:</strong>
+  <%= @customer.experience_point %>
+</p>
+
+<p>
+  <strong>is_valid:</strong>
+  <%= @customer.is_valid %>
+</p>
+
+<%= link_to 'Edit', edit_admin_customer_path(@customer) %> |
+<%= link_to 'Back', admin_customers_path %>

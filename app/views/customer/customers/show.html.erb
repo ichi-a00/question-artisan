@@ -1,0 +1,27 @@
+<p>
+  <strong>image:</strong>
+  <%= attachment_image_tag current_customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+</p>
+
+<p>
+  <strong>nickname:</strong>
+  <%= current_customer.nickname %>
+</p>
+
+<p>
+  <strong>introduction:</strong>
+  <%= current_customer.introduction %>
+</p>
+
+<p>
+  <strong>rank:</strong>
+  <%= current_customer.rank %>
+</p>
+
+<p>
+  <strong>Experience point:</strong>
+  <%= current_customer.experience_point %>
+</p>
+
+<%= link_to 'Edit', edit_customers_path %> |
+<%= link_to 'Back', root_path %>

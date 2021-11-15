@@ -1,0 +1,15 @@
+<h1>New Question</h1>
+
+<div class="field">
+  <% @formats.each do |f| %>
+    <!-- sale_status[0]が"sale"とか"sold_out"で、sale_status[1]が"販売中"とか"売切れ"-->
+    <!--%= form.radio_button :format, f[0], class: "mr-1 ml-3" %>%= f[0] %>-->
+    <%= link_to f[0], send("answer_format_questions_path", format: f[0]), remote: true %>
+  <% end %>
+</div>
+
+<div class="question_answer">
+  <%= render "question_answer", question: @question %>
+</div>
+
+<%= link_to 'Back', questions_path %>

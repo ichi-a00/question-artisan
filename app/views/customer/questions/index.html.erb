@@ -1,0 +1,42 @@
+<h1>Questions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Customer</th>
+      <th>Title</th>
+      <th>Sentence</th>
+      <th>Format</th>
+      <th>Explanation</th>
+      <th>Question image</th>
+      <th>Answer image</th>
+      <th>Answered time</th>
+      <th>Correct answered time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @questions.each do |question| %>
+      <tr>
+        <td><%= question.customer.nickname %></td>
+        <td><%= question.title %></td>
+        <td><%= question.sentence %></td>
+        <td><%= question.format %></td>
+        <td><%= question.explanation %></td>
+        <td><%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+        <td><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+        <td><%= question.answered_time %></td>
+        <td><%= question.correct_answered_time %></td>
+        <td><%= link_to 'Show', question %></td>
+        <td><%= link_to 'Artisan', artisan_question_path(question) %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Question', new_question_path %> |
+<%= link_to 'Randam Artisan', artisan_question_path(@questions.offset(rand(@questions.count)).first) %>

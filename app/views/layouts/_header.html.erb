@@ -1,0 +1,32 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <h1 class="site_logo">
+      <a href="/" class="navbar-brand">
+        <!--<img src="/assets/site-logo.png" alt="ながのCAKE">-->
+        LOGO
+      </a>
+    </h1>
+    <% if admin_signed_in? %>
+      <div class="text-light">Admin Mode.</div>
+    <% end %>
+    <% if customer_signed_in? %>
+      <div class="text-light"><%= current_customer.nickname %>さん</div>
+    <% end %>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li><%= link_to 'ranks', ranks_path, class: 'fas fa-cookie nav-link text-light' %></li>
+        <li><%= link_to 'adminログイン', new_admin_session_path, class: 'fas fa-user nav-link text-light' %></li>
+        <li><%= link_to 'adminログアウト', destroy_admin_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link text-light' %></li>
+        <li><%= link_to 'adminカスタマ一覧', admin_customers_path, class: 'fas fa-poo nav-link text-light' %></li>
+        <li><%= link_to 'adminQ', admin_questions_path, class: 'fas fa-check nav-link text-light' %></li>
+        <li><%= link_to 'customerログイン', new_customer_session_path, class: 'fas fa-blog nav-link text-light' %></li>
+        <li><%= link_to 'customerログアウト', destroy_customer_session_path, method: :delete, class: 'fas fa-bug nav-link text-light' %></li>
+        <li><%= link_to 'カスタママイページ', mypage_customers_path, class: 'fas fa-sync nav-link text-light' %></li>
+        <li><%= link_to 'カスタマQ', questions_path, class: 'fas fa-bullhorn nav-link text-light' %></li>
+      </ul>
+    </div>
+  </nav>
+</header>
