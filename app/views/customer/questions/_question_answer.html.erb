@@ -43,7 +43,7 @@
           <% end %>
 
       <% when "writing" %>
-           <%= form.fields_for :answers do |answer| %>
+          <%= form.fields_for :answers do |answer| %>
             <%= render "answer_fields", f: answer, question_format: question.format %>
           <% end %>
 
