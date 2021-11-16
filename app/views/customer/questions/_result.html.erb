@@ -1,0 +1,19 @@
+<% if correct %>
+  <p>正解!!</p>
+  <% if customer_signed_in? %>
+    <p>経験値を<%= ENV["CORRECT_EXP"] %>獲得</p>
+  <% end %>
+<% else %>
+  <p>残念^^^^</p>
+    <% if customer_signed_in? %>
+    <p>経験値を<%= ENV["INCORRECT_EXP"] %>獲得</p>
+  <% end %>
+<% end %>
+
+<% if customer_signed_in? %>
+  <% if rankup %>
+  <p>ランクアップしました！</p>
+<% end %>
+  <p>your rank: <%= current_customer.rank %></p>
+  <p>next rankまでに必要な経験値：<%= current_customer.next_rank_exp %></p>
+<% end %>
