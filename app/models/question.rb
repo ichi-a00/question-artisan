@@ -25,6 +25,7 @@ class Question < ApplicationRecord
   belongs_to :customer
   has_many :answers, dependent: :destroy
   has_many :results, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   #設問と答えを同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
