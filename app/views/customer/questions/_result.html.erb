@@ -12,8 +12,8 @@
 
 <% if customer_signed_in? %>
   <% if rankup %>
-  <p>ランクアップしました！</p>
-<% end %>
+    <p>ランクアップしました！</p>
+  <% end %>
   <p>your rank: <%= current_customer.rank %></p>
   <p>next rankまでに必要な経験値：<%= current_customer.next_rank_exp %></p>
 <% end %>
