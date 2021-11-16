@@ -154,14 +154,15 @@ class Customer::QuestionsController < ApplicationController
       if params[:format]
         @question.format = params[:format]
       else
+        #最初は○×をセット
         @question.format = "bool"
       end
       case @question.format
-      when "bool"
-        @question.answers.build(content: "○", is_correct: true)
-        @question.answers.build(content: "×", is_correct: false)
-      else
-        @question.answers.build(is_correct: true)
+        when "bool"
+          @question.answers.build(content: "○", is_correct: true)
+          @question.answers.build(content: "×", is_correct: false)
+        else
+          @question.answers.build(is_correct: true)
       end
     end
 end
