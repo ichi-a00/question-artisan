@@ -26,7 +26,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :results, dependent: :destroy
 
-  #同時に登録する用(非推奨ではある)
+  #設問と答えを同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
 
   def correct_answers
