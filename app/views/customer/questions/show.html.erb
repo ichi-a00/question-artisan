@@ -57,6 +57,17 @@
   <%= @question.correct_answered_time %>
 </p>
 
+<p>
+  <strong>Tags</strong>
+  <% if @question.tag_counts.present? %>
+    <% @question.tag_counts_on(:tags).each do |tag| %>
+      <%= "#{tag.name}(#{tag.taggings_count})" %>
+    <% end %>
+  <% else %>
+    <p>登録されているタグはありません</p>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_question_path(@question) %> |
 <%= link_to 'Back', questions_path %> |
 <%= link_to 'Artisan', artisan_question_path(@question) %>

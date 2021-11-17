@@ -121,13 +121,15 @@ class Customer::QuestionsController < ApplicationController
           #探してきたレコードの閾値よりもユーザーの総経験値が高かった場合レベルを1増やして更新
           @question.customer.rank += 1
         end
-
         @question.customer.save!
       end
-
     end
-
   end
+
+  def get_tag_search
+    @tags = Question.tag_counts_on(:tags).where('name LIKE(?)', "%#{params[:key]}%")
+  end
+
 
 
   private
@@ -148,6 +150,7 @@ class Customer::QuestionsController < ApplicationController
         :answer_image,
         :answered_time,
         :correct_answered_time,
+        :tag_list,
         answers_attributes: [:id, :content, :is_correct, :order, :_destroy]
         )
     end

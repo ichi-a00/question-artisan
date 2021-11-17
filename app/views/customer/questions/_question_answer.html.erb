@@ -65,6 +65,11 @@
     <%= form.attachment_field :answer_image, placeholder: "解説画像" %>
   </div>
 
+  <div class="field">
+    <%= form.label :tag_list %>
+    <%= form.text_field :tag_list, value: question.tag_list.join(','), class:"tag_form" %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

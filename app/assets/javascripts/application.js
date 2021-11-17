@@ -19,4 +19,6 @@
 //= require turbolinks
 //= require cocoon
 //= require refile
+//= require jquery-ui
+//= require tag-it
 //= require_tree .

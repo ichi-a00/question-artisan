@@ -51,10 +51,12 @@ Rails.application.routes.draw do
     resources :questions do
       collection do
         get "answer_format" => 'questions#answer_format', as: :answer_format
+        get 'get_tag_search', defaults: { format: 'json' }
       end
       member do
         get "artisan" => 'questions#artisan', as: :artisan
         post "result" => 'questions#result', as: :result
+        get 'get_tag_search', defaults: { format: 'json' }
       end
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
@@ -62,6 +64,5 @@ Rails.application.routes.draw do
   end
 
   resources :ranks
-
 
 end
