@@ -1,9 +1,0 @@
-<% if question.favorited_by?(current_customer) %>
-  <%= link_to question_favorites_path(question), method: :delete, remote: true do %>
-    ★<%= question.favorites.count %> いいね取り消す
-  <% end %>
-<% else %>
-  <%= link_to question_favorites_path(question), method: :post, remote: true do %>
-    ☆<%= question.favorites.count %> いいねする
-  <% end %>
-<% end %>

@@ -19,16 +19,14 @@ class Question < ApplicationRecord
     writing: 3,       # 記述
     #letter_sort: 4,  # ならべかえ
     #order: 5,        # 順番あて
-    #panel: 6,        # パネル()
+    #panel: 6,        # パネル(=一文多答&順番あて)
   }
 
   belongs_to :customer
   has_many :answers, dependent: :destroy
   has_many :results, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
 
-  #設問と答えを同時に登録する用(非推奨ではある)
+  #同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
 
   def correct_answers
@@ -37,10 +35,6 @@ class Question < ApplicationRecord
 
   def result?(customer)
     results.where(customer_id: customer.id).exists?
-  end
-
-  def favorited_by?(customer)
-    favorites.where(customer_id: customer.id).exists?
   end
 
 end

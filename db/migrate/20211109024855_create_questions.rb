@@ -5,7 +5,7 @@ class CreateQuestions < ActiveRecord::Migration[5.2]
       t.string  :title,                 null: false
       t.text    :sentence,              null: false
       t.integer :format,                null: false
-      t.text    :explanation
+      t.text    :explanation,           null: false, default: ""
       t.string  :question_image_id,     null: false, default: ""
       t.string  :answer_image_id,       null: false, default: ""
       t.integer :answered_time,         null: false, default: 0
