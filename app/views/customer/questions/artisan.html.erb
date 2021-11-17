@@ -21,6 +21,10 @@
 
 <div id="result"></div>
 
+<div class="favorite-btn-<%= @question.id %>">
+  <%= render 'customer/favorites/favorite', question: @question %>
+</div>
+
 <h4 class="my-3">コメント一覧</h4>
 <table class=''>
   <thead>
