@@ -148,6 +148,7 @@ class Customer::QuestionsController < ApplicationController
         :answer_image,
         :answered_time,
         :correct_answered_time,
+        :tag_list,
         answers_attributes: [:id, :content, :is_correct, :order, :_destroy]
         )
     end

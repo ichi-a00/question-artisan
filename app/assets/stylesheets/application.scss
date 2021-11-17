@@ -17,3 +17,10 @@
 @import "bootstrap";
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
+
+@import "jquery.tagit";
+@import "tagit.ui-zendesk";
+
+.ui-helper-hidden-accessible {
+  display: none;
+}

@@ -31,6 +31,9 @@ class Question < ApplicationRecord
   #設問と答えを同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
 
+  #tag
+  acts_as_taggable
+
   def correct_answers
     self.answers.where(is_correct: true)
   end
