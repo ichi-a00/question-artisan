@@ -64,8 +64,6 @@ Rails.application.routes.draw do
         get "artisan" => 'questions#artisan', as: :artisan
         post "result" => 'questions#result', as: :result
       end
-      resources :comments, only: [:create, :destroy]
-      resource :favorites, only: [:create, :destroy]
     end
     # resources :cart_products, only: [:index, :create, :update, :destroy] do
     #   collection do

@@ -14,10 +14,4 @@ class Customer < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :results, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
-
-  def next_rank_exp
-    Rank.find_by(rank: self.rank+1).experience_point - self.experience_point
-  end
 end
