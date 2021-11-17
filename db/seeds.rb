@@ -9,7 +9,6 @@
 admin = Admin.new(
   email: "test@test.com",
   password: "tester123")
-
 admin.save!
 
 admin_customer = Customer.new(
@@ -18,5 +17,15 @@ admin_customer = Customer.new(
   email: "admin@admin",
   password: "adminsan"
   )
-
 admin_customer.save!
+
+total = 0
+for i in 1..100 do
+  next_rank_exp = (i*Math.log(i)).ceil
+  rank = Rank.new(rank: i, experience_point: next_rank_exp+total)
+  rank.save!
+  total += next_rank_exp
+end
+
+rank = Rank.new(rank: 101, experience_point: 999999999)
+rank.save!

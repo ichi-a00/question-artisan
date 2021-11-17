@@ -60,6 +60,7 @@ class Customer::QuestionsController < ApplicationController
     #回答セット
     @your_answers = params[:your_answers]
     @correct = false
+    @rankup = false
 
     #回答判定
     if  @question.format == "writing"
@@ -67,10 +68,7 @@ class Customer::QuestionsController < ApplicationController
         @correct = true
       end
     else
-      #バグ? collection_check_boxesで送ると最初に""がつくから消す。
-      @your_answers.shift
       @your_answers.map!{|x| x.to_i}
-
       if @your_answers == @question.correct_answers.ids
         @correct = true
       end
@@ -103,13 +101,30 @@ class Customer::QuestionsController < ApplicationController
       else
         current_customer.experience_point += ENV["INCORRECT_EXP"].to_i
       end
+
+      next_rank = Rank.find_by(rank: current_customer.rank+1)
+
+      if next_rank.experience_point <= current_customer.experience_point
+        #探してきたレコードの閾値よりもユーザーの総経験値が高かった場合レベルを1増やして更新
+        current_customer.rank += 1
+        @rankup = true
+      end
+
       current_customer.save!
 
       #解かれた側の経験値
       if current_customer != @question.customer
         @question.customer.experience_point += ENV["ANSWERED_EXP"].to_i
+        next_rank = Rank.find_by(rank: @question.customer.rank+1)
+
+        if next_rank.experience_point <= @question.customer.experience_point
+          #探してきたレコードの閾値よりもユーザーの総経験値が高かった場合レベルを1増やして更新
+          @question.customer.rank += 1
+        end
+
         @question.customer.save!
       end
+
     end
 
   end
@@ -154,14 +169,15 @@ class Customer::QuestionsController < ApplicationController
       if params[:format]
         @question.format = params[:format]
       else
+        #最初は○×をセット
         @question.format = "bool"
       end
       case @question.format
-      when "bool"
-        @question.answers.build(content: "○", is_correct: true)
-        @question.answers.build(content: "×", is_correct: false)
-      else
-        @question.answers.build(is_correct: true)
+        when "bool"
+          @question.answers.build(content: "○", is_correct: true)
+          @question.answers.build(content: "×", is_correct: false)
+        else
+          @question.answers.build(is_correct: true)
       end
     end
 end
