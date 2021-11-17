@@ -78,6 +78,7 @@ gem 'enum_help'
 gem "cocoon"
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'jquery-ui-rails'
+gem 'tag-it-rails'
 
 group :production do
   gem 'mysql2'
