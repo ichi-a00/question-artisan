@@ -69,7 +69,7 @@ class Customer::QuestionsController < ApplicationController
       end
     else
       @your_answers.map!{|x| x.to_i}
-      if @your_answers == @question.correct_answers.ids
+      if @question.correct_answers.ids  == @your_answers
         @correct = true
       end
     end

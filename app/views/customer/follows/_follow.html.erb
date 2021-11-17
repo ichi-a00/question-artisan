@@ -1,0 +1,9 @@
+<% if customer_signed_in? %>
+  <% if customer != current_customer %>
+    <% if current_customer.following_customers.exists?(customer.id) %>
+      <%= link_to "フォロー解除", customer_follows_path(customer), method: :delete, class:"btn btn-danger" %>
+    <% else %>
+      <%= link_to "フォローする", customer_follows_path(customer), method: :post, class:"btn btn-info" %>
+     <% end %>
+  <% end %>
+<% end %>

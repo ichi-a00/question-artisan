@@ -1,19 +1,40 @@
-<% if correct %>
-  <p>正解!!</p>
-  <% if customer_signed_in? %>
-    <p>経験値を<%= ENV["CORRECT_EXP"] %>獲得</p>
-  <% end %>
-<% else %>
-  <p>残念^^^^</p>
+<div class="">
+  <% if correct %>
+    <p>正解!!</p>
     <% if customer_signed_in? %>
-    <p>経験値を<%= ENV["INCORRECT_EXP"] %>獲得</p>
+      <p>経験値を<%= ENV["CORRECT_EXP"] %>獲得</p>
+    <% end %>
+  <% else %>
+    <p>残念^^^^</p>
+      <% if customer_signed_in? %>
+      <p>経験値を<%= ENV["INCORRECT_EXP"] %>獲得</p>
+    <% end %>
   <% end %>
-<% end %>
+</div>
 
-<% if customer_signed_in? %>
-  <% if rankup %>
-    <p>ランクアップしました！</p>
+<div class="">
+  <p>答えは<%= question.correct_answers.pluck(:content) %></p>
+</div>
+
+<div class="rankup">
+  <% if customer_signed_in? %>
+    <% if rankup %>
+      <p>ランクアップしました！</p>
+    <% end %>
+    <p>your rank: <%= current_customer.rank %></p>
+    <p>next rankまでに必要な経験値：<%= current_customer.next_rank_exp %></p>
   <% end %>
-  <p>your rank: <%= current_customer.rank %></p>
-  <p>next rankまでに必要な経験値：<%= current_customer.next_rank_exp %></p>
-<% end %>
+</div>
+
+<div class="">
+  <p>この設問の作者</p>
+  <p>
+    <%= link_to customer_path(question.customer) do %>
+      <%= attachment_image_tag question.customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+      <%= question.customer.nickname %>さん
+    <% end %>
+  </p>
+  <p>
+    <%= render "customer/follows/follow", customer: question.customer %>
+  </p>
+</div>
