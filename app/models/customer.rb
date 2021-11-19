@@ -31,6 +31,7 @@ class Customer < ApplicationRecord
   end
 
   def following?(customer)
-    self.following_customers.include?(customer)
+    #n+1問題対応
+    self.following_customers.map(&:id).include?(customer.id)
   end
 end
