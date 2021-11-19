@@ -10,6 +10,9 @@ Rails.application.routes.draw do
 
     resources :customers, except: [:new, :create, :destroy]
     resources :questions do
+      collection do
+        post 'import'
+      end
       member do
         resources :answers, only: [:edit, :create, :update, :destroy]
       end

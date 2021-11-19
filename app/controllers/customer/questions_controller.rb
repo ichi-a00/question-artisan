@@ -1,13 +1,15 @@
 class Customer::QuestionsController < ApplicationController
   before_action :set_question!, only: %i[ show edit update destroy artisan result ]
-  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result]
+  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result, :search]
   before_action :ensure_correct_customer!, only: [:edit, :update, :destroy]
   before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
   before_action :initialize_answer, only: [:new, :answer_format]
 
   # GET /questions
   def index
-    @questions = Question.all
+    @content = params[:content]
+    @questions = Question.includes(:customer).search(@content)
+    @tags = Question.tag_counts_on(:tags).order('count DESC')
   end
 
   # GET /questions/1
@@ -53,6 +55,8 @@ class Customer::QuestionsController < ApplicationController
   end
 
   def artisan
+    impressionist(@question, nil, unique: [:impressionable_id, :ip_address])
+    @tags = @question.tag_counts_on(:tags).order('count DESC')
   end
 
   #too fat
@@ -129,8 +133,6 @@ class Customer::QuestionsController < ApplicationController
   def get_tag_search
     @tags = Question.tag_counts_on(:tags).where('name LIKE(?)', "%#{params[:key]}%")
   end
-
-
 
   private
     # Use callbacks to share common setup or constraints between actions.

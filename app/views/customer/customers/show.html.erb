@@ -18,7 +18,7 @@
   <%= @customer.rank %>
 </p>
 
-<% if @customer_id == current_customer.id %>
+<% if customer_signed_in? && @customer_id == current_customer.id %>
   <p>
     <strong>総経験値:</strong>
     <%= @customer.experience_point %>

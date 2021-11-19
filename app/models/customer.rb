@@ -29,4 +29,8 @@ class Customer < ApplicationRecord
   def next_rank_exp
     Rank.find_by(rank: self.rank+1).experience_point - self.experience_point
   end
+
+  def following?(customer)
+    self.following_customers.include?(customer)
+  end
 end
