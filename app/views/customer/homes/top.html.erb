@@ -3,7 +3,7 @@
 
 <% if @tags.present? %>
   <% @tags.each do |tag| %>
-    <%= link_to "#{tag.name}(#{tag.taggings_count})", tags_path(tag.name) %>
+    <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(tag.id) %>
   <% end %>
 <% else %>
   <p>登録されているタグはありません</p>

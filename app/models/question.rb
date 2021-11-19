@@ -23,6 +23,8 @@ class Question < ApplicationRecord
   }
 
   belongs_to :customer
+  counter_culture :customer
+
   has_many :answers, dependent: :destroy
   has_many :results, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -34,6 +36,9 @@ class Question < ApplicationRecord
   #tag
   acts_as_taggable
 
+  #閲覧数
+  is_impressionable counter_cache: true
+
   def correct_answers
     self.answers.where(is_correct: true)
   end
@@ -44,6 +49,28 @@ class Question < ApplicationRecord
 
   def favorited_by?(customer)
     favorites.where(customer_id: customer.id).exists?
+  end
+
+  #csv import
+  def self.import(file)
+    CSV.foreach(file.path, headers: true) do |row|
+      question = find_by(id: row["id"]) || new
+      question.attributes = row.to_hash.slice(*updatable_attributes)
+      question.save!(validate: false)
+    end
+  end
+
+  def self.updatable_attributes
+    ['id', 'customer_id', 'title', 'sentence', 'format', 'explanation']
+  end
+
+  def self.search(content)
+    if content
+      left_joins(:customer, :tags).where(['title LIKE(?) OR customers.nickname LIKE(?) OR tags.name LIKE ?', "%#{content}%", "%#{content}%", "%#{content}%"]).distinct
+      #binding.pry
+    else
+      all
+    end
   end
 
 end

@@ -1,6 +1,6 @@
 class Customer::FollowsController < ApplicationController
   before_action :set_customer!
-  before_action :authenticate_customer!
+  before_action :authenticate_customer!, only: [:create, :destroy]
 
   #フォローする人：current_customer.id, フォローされる人：params[:customer_id]
   def create

@@ -1,4 +1,4 @@
-<% question.comments.each do |com| %>
+<% question.comments.includes(:customer).each do |com| %>
   <tr>
     <td>
       <%= attachment_image_tag com.customer, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></br>

@@ -23,6 +23,16 @@
 
 <div id="result"></div>
 
+<div class="">
+  <% if @tags.present? %>
+    <% @tags.each do |tag| %>
+      <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(content: tag.name) %>
+    <% end %>
+  <% else %>
+    <p>登録されているタグはありません</p>
+  <% end %>
+</div>
+
 <div class="favorite-btn-<%= @question.id %>">
   <%= render 'customer/favorites/favorite', question: @question %>
 </div>
@@ -42,13 +52,16 @@
   </tbody>
 </table>
 
-<h4 class="my-3">コメントする</h4>
-<div>
+<div class="">
+<% if customer_signed_in? %>
+  <h4 class="my-3">コメントする</h4>
   <%= form_with(model:[@question, Comment.new], remote: true) do |f| %>
     <%= f.text_area :body, rows:'2', placeholder: "コメントをここに", class:"new-comment" %>
     <%= f.submit %>
   <% end %>
-</div>
+<% else %>
+  <h4 class="my-3">ログインすればコメントできます。</h4>
+<% end %>
 
 <%= link_to 'Back', questions_path %> |
 <%= link_to 'Randam Artisan', artisan_question_path(Question.all.offset(rand(Question.all.count)).first) %>

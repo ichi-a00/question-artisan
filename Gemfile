@@ -51,6 +51,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem "bullet"
 end
 
 group :test do
@@ -79,6 +80,9 @@ gem "cocoon"
 gem 'acts-as-taggable-on', '~> 6.0'
 gem 'jquery-ui-rails'
 gem 'tag-it-rails'
+gem 'impressionist', '~>1.6.1'
+gem 'roo'
+gem 'counter_culture'
 
 group :production do
   gem 'mysql2'

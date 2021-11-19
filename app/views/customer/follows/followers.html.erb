@@ -1,33 +1,3 @@
 <h2><%= @customer.nickname %>さんのフォロワー一覧</h2>
 
-<table>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>nickname</th>
-      <th>Questions</th>
-      <th>following</th>
-      <th>follower</th>
-      <th colspan="1"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @customer.followed_customers.each do |customer| %>
-      <tr>
-        <td>
-          <%= link_to customer_path(customer) do %>
-            <%= attachment_image_tag customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-          <% end %>
-        </td>
-        <td><%= customer.nickname %></td>
-        <td><%= Question.where(customer_id: customer.id).count %></td>
-        <td><%= link_to customer.following.count, followings_customer_follows_path(customer), class:"btn btn-outline-primary" %></td>
-        <td><%= link_to customer.followed.count, followers_customer_follows_path(customer), class:"btn btn-outline-primary" %></td>
-        <td>
-          <%= render "customer/follows/follow", customer: customer %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= render "customer/customers/index", customers: @customer.followed_customers %>
