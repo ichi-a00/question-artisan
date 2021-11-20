@@ -6,12 +6,13 @@
         LOGO
       </a>
     </h1>
-    <div class="text-light"><%= current_customer.nickname %>さん</div>
-    <div class="text-light">Rank:<%= current_customer.rank %></div>
-    <div class="text-light">次のRankまでのEXP:<%= current_customer.next_rank_exp %></div>
+    <div class="text-light"><%= attachment_image_tag current_customer, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></div>
+    <div class="text-light">　<%= current_customer.nickname %>さん</div>
+    <div class="text-light">　Rank:<%= current_customer.rank %>　</div>
     <div class="progress w-25">
-      <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+      <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style=<%= "width:" + current_customer.next_rank_percent.to_s + "%;" %> aria-valuenow=<%= current_customer.next_rank_percent.to_i %> aria-valuemin="0" aria-valuemax="100"></div>
     </div>
+    <div class="text-light">　あと<%= current_customer.next_rank_exp %></div>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -27,11 +27,27 @@ class Customer < ApplicationRecord
   has_many :followed_customers, through: :followed, source: :following
 
   def next_rank_exp
-    Rank.find_by(rank: self.rank+1).experience_point - self.experience_point
+    self.exp_to - self.experience_point
+  end
+
+  def next_rank_percent
+    100*(1-self.next_rank_exp/(self.exp_to - self.exp_from).to_f)
   end
 
   def following?(customer)
     #n+1問題対応
     self.following_customers.map(&:id).include?(customer.id)
+  end
+
+  def rankup?
+    if self.exp_to <= self.experience_point
+      #探してきたレコードの閾値よりもユーザーの総経験値が高かった場合レベルを1増やして更新
+      self.rank += 1
+      self.exp_from = Rank.find_by(rank: self.rank).experience_point
+      self.exp_to = Rank.find_by(rank: self.rank+1).experience_point
+      self.save!
+    else
+      return false
+    end
   end
 end
