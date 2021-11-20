@@ -34,7 +34,7 @@
       <%= question.customer.nickname %>さん
     <% end %>
   </p>
-  <p>
+  <div class="follow-btn-<%= question.customer.id %>">
     <%= render "customer/follows/follow", customer: question.customer %>
-  </p>
+  </div>
 </div>

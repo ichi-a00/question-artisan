@@ -1,3 +1,5 @@
+//タグ系jquery（ほぼ引用)
+
 // ページ更新でtag-it発火
 $(document).on('turbolinks:load ajax:complete', function () {
   $(".tag_form").tagit({  // 指定のセレクタ( 今回は、:tag_list の text_field )に、tag-itを反映

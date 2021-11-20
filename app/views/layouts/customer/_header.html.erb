@@ -1,0 +1,29 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <h1 class="site_logo">
+      <a href="/" class="navbar-brand">
+        <!--<img src="/assets/site-logo.png" alt="ながのCAKE">-->
+        LOGO
+      </a>
+    </h1>
+    <div class="text-light"><%= current_customer.nickname %>さん</div>
+    <div class="text-light">Rank:<%= current_customer.rank %></div>
+    <div class="text-light">次のRankまでのEXP:<%= current_customer.next_rank_exp %></div>
+    <div class="progress w-25">
+      <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li><%= link_to 'Artisan', artisan_question_path(Question.all.offset(rand(Question.all.count)).first), class: 'fas fa-bullhorn nav-link text-light' %></li>
+        <li><%= link_to '検索', questions_path, class: 'fas fa-bullhorn nav-link text-light' %></li>
+        <li><%= link_to 'New Question', new_question_path, class: 'fas fa-bullhorn nav-link text-light' %></li>
+        <li><%= link_to 'ランキング', customers_path, class: 'fas fa-bullhorn nav-link text-light' %></li>
+        <li><%= link_to 'マイページ', customer_path(current_customer), class: 'fas fa-sync nav-link text-light' %></li>
+        <li><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: 'fas fa-bug nav-link text-light' %></li>
+      </ul>
+    </div>
+  </nav>
+</header>
