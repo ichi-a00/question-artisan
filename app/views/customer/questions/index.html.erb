@@ -1,13 +1,16 @@
-<div class='search_tag'>
+<h3>Question Search</h3>
+<div class='search_tag mb-1'>
   <%= form_with url: questions_path, method: :get do |f| %>
+    <p>作者、タイトル、タグ名で検索ができます。</p>
     <%= f.text_field :content, placeholder: 'キーワード', value: @content, class:'index_search' %>
   <% end %>
 </div>
 
-<div class="">
+<div class="mb-4">
   <% if @tags.present? %>
+    <i class="fas fa-tags"></i>
     <% @tags.each do |tag| %>
-      <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(content: tag.name) %>
+      <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(content: tag.name), class:"badge rounded-pill bg-primary text-light my-1" %>
     <% end %>
   <% else %>
     <p>登録されているタグはありません</p>
@@ -16,25 +19,9 @@
 
 <h3>Questions</h3>
 
-<table>
-  <thead>
-    <tr>
-      <th>Customer</th>
-      <th>Title</th>
-      <th>Sentence</th>
-      <th>Format</th>
-      <th>Question image</th>
-      <th>Favorites</th>
-      <th>Answered time</th>
-      <th>Correct answered time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
   <tbody class="search_tbody">
     <%= render "tbody", questions: @questions %>
   </tbody>
-</table>
 
 <br>
 

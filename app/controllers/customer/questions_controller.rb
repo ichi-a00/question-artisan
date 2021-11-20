@@ -8,7 +8,7 @@ class Customer::QuestionsController < ApplicationController
   # GET /questions
   def index
     @content = params[:content]
-    @questions = Question.includes(:customer).search(@content)
+    @questions = Question.includes(:tags, :tag_taggings).search(@content)
     @tags = Question.tag_counts_on(:tags).order('count DESC')
   end
 
