@@ -7,6 +7,7 @@ class Customer::CustomersController < ApplicationController
 
   def show
     @customer = Customer.find(params[:id])
+    @questions = @customer.questions.includes(:tags).page(params[:page]).per(10)
   end
 
   def edit

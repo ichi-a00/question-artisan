@@ -1,7 +1,6 @@
 <h3>Question Search</h3>
 <div class='search_tag mb-1'>
   <%= form_with url: questions_path, method: :get do |f| %>
-    <p>作者、タイトル、タグ名で検索ができます。</p>
     <%= f.text_field :content, placeholder: 'キーワード', value: @content, class:'index_search' %>
   <% end %>
 </div>
@@ -19,11 +18,6 @@
 
 <h3>Questions</h3>
 
-  <tbody class="search_tbody">
-    <%= render "tbody", questions: @questions %>
-  </tbody>
-
-<br>
-
-<%= link_to 'New Question', new_question_path %> |
-<%= link_to 'Randam Artisan', artisan_question_path(Question.all.offset(rand(Question.all.count)).first) %>
+<div class="search_tbody">
+  <%= render "list", questions: @questions %>
+</div>

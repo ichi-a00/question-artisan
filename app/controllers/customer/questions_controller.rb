@@ -8,8 +8,9 @@ class Customer::QuestionsController < ApplicationController
   # GET /questions
   def index
     @content = params[:content]
-    @questions = Question.includes(:tags, :tag_taggings).search(@content)
+    @questions = Question.includes(:tags, :tag_taggings).search(@content).page(params[:page]).per(20)
     @tags = Question.tag_counts_on(:tags).order('count DESC')
+    #binding.pry
   end
 
   # GET /questions/1
