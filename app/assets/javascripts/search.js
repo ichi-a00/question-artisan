@@ -1,3 +1,4 @@
+//インクリメンタルサーチ用jquery
 $(document).on('turbolinks:load ajax:complete', function() {
   $(document).on('input', '.index_search', function(){
     // 検索ワードの取得

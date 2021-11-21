@@ -1,3 +1,4 @@
+<h1>Profile Edit</h1>
 <%= form_with model: current_customer, local: true do |form| %>
   <% if current_customer.errors.any? %>
     <div id="error_explanation">
@@ -11,35 +12,63 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :nickname %>
-    <%= form.text_field :nickname %>
-  </div>
-
-  <div class="field">
-    <%= form.attachment_field :image, placeholder: "プロフィール画像" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :introduction %>
-    <%= form.text_area :introduction %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.email_field :email %>
+  <div class="card bg-warning border-dark mb-3">
+    <div class="row no-gutters">
+      <div class="col-md-5">
+        <div class="card-header d-flex flex-column align-items-center">
+          <div><%= attachment_image_tag current_customer, :image, :fill, 120, 120, format: 'jpeg', fallback: "no_image.jpg" %></div>
+        </div>
+        <div class="card-header">
+          <%= form.attachment_field :image, placeholder: "プロフィール画像" %>
+        </div>
+      </div>
+      <div class="col-md-7">
+        <div class="card-header d-flex justify-content-between">
+          <div class="d-flex justify-content-start align-items-center">
+            <div class="field">
+              <%= form.text_field :nickname, placeholder:"nickname" %>
+            </div>
+            <div class="mx-3">Rank:<%= current_customer.rank %></div>
+          </div>
+          <div class="d-flex justify-content-end align-items-center">
+            <div class="mx-3">投稿数：<%= current_customer.questions_count %></div>
+            <div class="">
+              <i class="fas fa-sign-out-alt fa-lg text-danger mx-1"></i><span class:"btn btn-outline-danger"><%= current_customer.following_count %></span>
+              <i class="fas fa-sign-in-alt fa-lg text-primary mx-1"></i><span class:"btn btn-outline-primary"><%= current_customer.followed_count %></span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body bg-light text-dark d-flex justify-content-start">
+          <div>総経験値：<%= current_customer.experience_point %></div>
+          <div class="mx-3">次まで：<%= current_customer.next_rank_exp %></div>
+        </div>
+        <div class="card-body bg-light text-dark d-flex justify-content-start">
+          <div class="mr-3">登録日：<%= current_customer.created_at.strftime('%Y/%m/%d') %></div>
+          <div class="field">
+            <%= form.email_field :email, placeholder:"email" %>
+          </div>
+        </div>
+        <div class="card-body bg-light text-dark d-flex justify-content-between align-items-end">
+          <div class="field">
+            <%= form.text_area :introduction, size: "50x3", placeholder:"introduction" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
-  </div>
-
-  <div class="actions">
-    <%= link_to "パスワードを変更する", edit_customer_registration_path(current_customer), class:"btn btn-info" %>
-  </div>
-
-  <div class="actions">
-    <%= link_to "退会する", unsubscribe_customers_path, class:"btn btn-danger" %>
+    <%= form.submit class:"btn btn-success" %>
   </div>
 
 <% end %>
+
+<h1 class="mt-4">Or More?</h1>
+
+<div class="actions">
+  <%= link_to "パスワードを変更する", edit_customer_registration_path(current_customer), class:"btn btn-info" %>
+</div>
+
+<div class="actions">
+  <%= link_to "退会する", unsubscribe_customers_path, class:"btn btn-danger" %>
+</div>

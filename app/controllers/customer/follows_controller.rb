@@ -5,9 +5,11 @@ class Customer::FollowsController < ApplicationController
   #フォローする人：current_customer.id, フォローされる人：params[:customer_id]
   def create
     follow = Follow.new(following_id: current_customer.id, followed_id: @customer.id)
-    #binding.pry
     follow.save!
-    redirect_back(fallback_location: root_path)
+    #artisanのresult画面から来たときだけ非同期
+    unless URI(request.referer.to_s).path.include?("/artisan")
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   def followings
@@ -18,9 +20,10 @@ class Customer::FollowsController < ApplicationController
 
   def destroy
     follow = current_customer.following.find_by(followed_id: @customer.id)
-    #binding.pry
     follow.destroy!
-    redirect_back(fallback_location: root_path)
+    unless URI(request.referer.to_s).path.include?("/artisan")
+      redirect_back(fallback_location: root_path)
+    end
   end
 
   private

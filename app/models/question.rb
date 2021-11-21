@@ -39,6 +39,10 @@ class Question < ApplicationRecord
   #閲覧数
   is_impressionable counter_cache: true
 
+  def correct_answer_rate
+    (self.correct_answered_time/self.answered_time.to_f*100).floor
+  end
+
   def correct_answers
     self.answers.where(is_correct: true)
   end

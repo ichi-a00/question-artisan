@@ -8,8 +8,9 @@ class Customer::QuestionsController < ApplicationController
   # GET /questions
   def index
     @content = params[:content]
-    @questions = Question.includes(:customer).search(@content)
+    @questions = Question.includes(:tags, :tag_taggings).search(@content).page(params[:page]).per(20)
     @tags = Question.tag_counts_on(:tags).order('count DESC')
+    #binding.pry
   end
 
   # GET /questions/1
@@ -105,27 +106,14 @@ class Customer::QuestionsController < ApplicationController
       else
         current_customer.experience_point += ENV["INCORRECT_EXP"].to_i
       end
-
-      next_rank = Rank.find_by(rank: current_customer.rank+1)
-
-      if next_rank.experience_point <= current_customer.experience_point
-        #探してきたレコードの閾値よりもユーザーの総経験値が高かった場合レベルを1増やして更新
-        current_customer.rank += 1
-        @rankup = true
-      end
-
       current_customer.save!
+      @rankup = current_customer.rankup?
 
       #解かれた側の経験値
       if current_customer != @question.customer
         @question.customer.experience_point += ENV["ANSWERED_EXP"].to_i
-        next_rank = Rank.find_by(rank: @question.customer.rank+1)
-
-        if next_rank.experience_point <= @question.customer.experience_point
-          #探してきたレコードの閾値よりもユーザーの総経験値が高かった場合レベルを1増やして更新
-          @question.customer.rank += 1
-        end
         @question.customer.save!
+        @question.customer.rankup?
       end
     end
   end

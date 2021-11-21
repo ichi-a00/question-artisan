@@ -20,5 +20,5 @@
 //= require cocoon
 //= require refile
 //= require jquery-ui
-//= require tag-it
+//= require tag-it.min
 //= require_tree .

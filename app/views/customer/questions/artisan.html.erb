@@ -37,25 +37,28 @@
   <%= render 'customer/favorites/favorite', question: @question %>
 </div>
 
-<h4 class="my-3">コメント一覧</h4>
-<table class=''>
-  <thead>
-    <tr>
-      <th>ユーザー</th>
-      <th>内容</th>
-      <th>時間</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody class="comment">
-    <%= render 'customer/comments/comment', question: @question %>
-  </tbody>
-</table>
+<h4 class="my-3">コメント一覧(<%= @question.comments.size %>) <button class="btn btn-raised btn-secondary" data-toggle="button" id="comments-btn">表示</button></h4>
 
-<div class="">
+<div id="comments">
+  <table>
+    <thead>
+      <tr>
+        <th>ユーザー</th>
+        <th>内容</th>
+        <th>時間</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="comment">
+      <%= render 'customer/comments/comment', question: @question %>
+    </tbody>
+  </table>
+</div>
+
+<div id="">
 <% if customer_signed_in? %>
   <h4 class="my-3">コメントする</h4>
-  <%= form_with(model:[@question, Comment.new], remote: true) do |f| %>
+  <%= form_with(model:[@question, Comment.new], id:"create_comment", remote: true) do |f| %>
     <%= f.text_area :body, rows:'2', placeholder: "コメントをここに", class:"new-comment" %>
     <%= f.submit %>
   <% end %>
