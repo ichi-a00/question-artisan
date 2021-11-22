@@ -1,22 +1,17 @@
-<h3>Question Search</h3>
+<h1>Question Search</h1>
 <div class='search_tag mb-1'>
   <%= form_with url: questions_path, method: :get do |f| %>
     <%= f.text_field :content, placeholder: 'キーワード', value: @content, class:'index_search' %>
+    <i class="far fa-times-circle fa-lg" id="del-btn"></i>
   <% end %>
 </div>
 
-<div class="mb-4">
-  <% if @tags.present? %>
-    <i class="fas fa-tags"></i>
-    <% @tags.each do |tag| %>
-      <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(content: tag.name), class:"badge rounded-pill bg-primary text-light my-1" %>
-    <% end %>
-  <% else %>
-    <p>登録されているタグはありません</p>
-  <% end %>
+<div class="my-3">
+  <div class="tag_lists"><%= render "tags", tags: @tags %></div>
+  <div class="all_tags"><%= link_to '全タグ一覧', alltags_questions_path %></div>
 </div>
 
-<h3>Questions</h3>
+<h1 class="mt-5">Questions</h1>
 
 <div class="search_tbody">
   <%= render "list", questions: @questions %>

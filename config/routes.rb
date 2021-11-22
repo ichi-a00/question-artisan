@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       collection do
         get "answer_format" => 'questions#answer_format', as: :answer_format
         get 'get_tag_search', defaults: { format: 'json' }
+        get "alltags"
       end
       member do
         get "artisan" => 'questions#artisan', as: :artisan

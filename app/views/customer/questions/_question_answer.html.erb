@@ -1,76 +1,114 @@
-<%= question.format %>
 <%= form_with(model: question, local: true) do |form| %>
   <% if question.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
       <ul>
-      <% question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% question.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.hidden_field :customer_id, :value => current_customer.id %>
-  </div>
+  <%= form.hidden_field :customer_id, :value => current_customer.id %>
+  <%= form.hidden_field :format, :value => question.format %>
 
-  <div class="field">
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </div>
+  <div class="card bg-secondary text-light mb-3">
 
-  <div class="field">
-    <%= form.label :sentence %>
-    <%= form.text_area :sentence %>
-  </div>
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :format %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <div class="badge bg-dark text-light"><%= question.format %></div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.label :question_image %>
-    <%= form.attachment_field :question_image, placeholder: "問題に画像が必要であれば" %>
-  </div>
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :question_image %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <div><%= attachment_image_tag question, :question_image, :fill, 120, 120, format: 'jpeg', fallback: "no_image_square.jpeg", size:'120x120' %></div>
+        <div class="my-1"><%= form.attachment_field :question_image %></div>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= form.hidden_field :format, :value => question.format %>
-  </div>
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :title %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <%= form.text_field :title, placeholder: "タイトル" %>
+      </div>
+    </div>
 
-  <div id="answers">
-    <% case question.format
-         when "bool" %>
-          <%= form.fields_for :answers do |answer| %>
-            <%= render "answer_fields", f: answer, question_format: question.format %>
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <i class="fas fa-tags"></i><%= form.label :tags %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <span class="bg-light"><%= form.text_field :tag_list, value: question.tag_list.join(','), class:"tag_form" %></span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :sentence %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <%= form.text_area :sentence, size:"50*4", placeholder:"問題文" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :answers %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <div id="answers" class="card-body bg-light">
+          <% case question.format
+               when "bool" %>
+                <%= form.fields_for :answers do |answer| %>
+                  <%= render "answer_fields", f: answer, question_format: question.format %>
+                <% end %>
+
+            <% when "writing" %>
+                <%= form.fields_for :answers do |answer| %>
+                  <%= render "answer_fields", f: answer, question_format: question.format %>
+                <% end %>
+
+            <% else %>
+                <%= link_to_add_association '選択肢の追加', form, :answers, data: { association_insertion_method: 'append' }, render_options: {locals: { question_format: question.format }} %>
+                <%= form.fields_for :answers do |answer| %>
+                  <%= render "answer_fields", f: answer, question_format: question.format %>
+                <% end %>
           <% end %>
+        </div>
+      </div>
+    </div>
 
-      <% when "writing" %>
-          <%= form.fields_for :answers do |answer| %>
-            <%= render "answer_fields", f: answer, question_format: question.format %>
-          <% end %>
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :explanation %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <%= form.text_area :explanation, placeholder: "解説", size:"50*4" %>
+      </div>
+    </div>
 
-      <% else %>
-          <%= link_to_add_association '選択肢の追加', form, :answers, data: { association_insertion_method: 'append' }, render_options: {locals: { question_format: question.format }} %>
-          <%= form.fields_for :answers do |answer| %>
-            <%= render "answer_fields", f: answer, question_format: question.format %>
-          <% end %>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= form.label :explanation %>
-    <%= form.text_area :explanation, placeholder: "解説" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :answer_image %>
-    <%= form.attachment_field :answer_image, placeholder: "解説画像" %>
-  </div>
-
-  <div class="field">
-    <%= form.label :tag_list %>
-    <%= form.text_field :tag_list, value: question.tag_list.join(','), class:"tag_form" %>
+    <div class="row">
+      <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <%= form.label :answer_image %>
+      </div>
+      <div class="col-md-9 card-body bg-light text-dark">
+        <div><%= attachment_image_tag @question, :answer_image, :fill, 120, 120, format: 'jpeg', fallback: "no_image_square.jpeg", size:'120x120' %></div>
+        <div class="my-1"><%= form.attachment_field :answer_image, placeholder: "解説画像" %></div>
+      </div>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class:"btn btn-success" %>
   </div>
 <% end %>

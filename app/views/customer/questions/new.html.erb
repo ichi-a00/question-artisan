@@ -1,15 +1,13 @@
-<h1>New Question</h1>
+<h1>New Question and Answers</h1>
+<h4>Step1, 問題形式を選択して下さい。作成後は変更できません。</h4>
+<% @formats.each do |f| %>
+  <%= link_to f[0], send("answer_format_questions_path", format: f[0]), class:"badge bg-dark text-light", remote: true %>
+<% end %>
 
-<div class="field">
-  <% @formats.each do |f| %>
-    <!-- sale_status[0]が"sale"とか"sold_out"で、sale_status[1]が"販売中"とか"売切れ"-->
-    <!--%= form.radio_button :format, f[0], class: "mr-1 ml-3" %>%= f[0] %>-->
-    <%= link_to f[0], send("answer_format_questions_path", format: f[0]), remote: true %>
-  <% end %>
-</div>
+<h4 class="mt-5">Step2, 必要事項を記入して下さい。</h4>
 
 <div class="question_answer">
-  <%= render "question_answer", question: @question %>
+  <%= render 'question_answer', question: @question %>
 </div>
 
-<%= link_to 'Back', questions_path %>
+<%= link_to 'Back', questions_path, class:"mt-3" %>

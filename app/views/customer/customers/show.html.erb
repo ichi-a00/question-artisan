@@ -1,15 +1,8 @@
-<div class="d-flex justify-content-between align-items-center">
-  <div><h1>Profile</h1></div>
-  <div>
-    <% if customer_signed_in? && @customer.id == current_customer.id %>
-      <%= link_to 'edit', edit_customer_path(@customer), class: 'fas fa-blog nav-link' %>
-    <% end %>
-  </div>
-</div>
+<h1>Profile</h1>
 <div class="card bg-warning border-dark mb-3">
   <div class="row no-gutters">
     <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
-        <div><%= attachment_image_tag @customer, :image, :fill, 120, 120, format: 'jpeg', fallback: "no_image.jpg" %></div>
+        <div><%= attachment_image_tag @customer, :image, :fill, 150, 150, format: 'jpeg', fallback: "no_image.jpg", size:'150x150' %></div>
     </div>
     <div class="col-md-9">
       <div class="card-header d-flex justify-content-between">
@@ -26,26 +19,30 @@
           </div>
         </div>
       </div>
+      <div class="card-body bg-light text-dark d-flex justify-content-between align-items-end">
+        <div><%= @customer.introduction %></div>
+      </div>
       <div class="card-body bg-light text-dark d-flex justify-content-start">
         <% if customer_signed_in? && @customer.id == current_customer.id %>
           <div>総経験値：<%= @customer.experience_point %></div>
           <div class="mx-3">次まで：<%= @customer.next_rank_exp %></div>
         <% end %>
       </div>
-      <div class="card-body bg-light text-dark d-flex justify-content-start">
+      <div class="card-footer bg-light text-dark d-flex justify-content-start">
         <div class="mr-3">登録日：<%= @customer.created_at.strftime('%Y/%m/%d') %></div>
         <% if customer_signed_in? && @customer.id == current_customer.id %>
           <div><%= @customer.email %></div>
         <% end %>
       </div>
-      <div class="card-body bg-light text-dark d-flex justify-content-between align-items-end">
-        <div><%= @customer.introduction %></div>
-      </div>
     </div>
   </div>
 </div>
 
-<h1>Questions</h1>
+<% if customer_signed_in? && @customer.id == current_customer.id %>
+  <%= link_to 'Edit', edit_customer_path(@customer), class: 'fas fa-user-edit nav-link' %>
+<% end %>
+
+<h1 class="mt-5">Questions</h1>
 
 <div class="">
   <%= render "customer/questions/list", questions: @questions %>

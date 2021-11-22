@@ -1,0 +1,8 @@
+<% if tags.present? %>
+  <i class="fas fa-tags"></i>
+  <% tags.each do |tag| %>
+    <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(content: tag.name, column: "tag"), class:"badge rounded-pill bg-primary text-light my-1" %>
+  <% end %>
+<% else %>
+  <p>登録されているタグはありません</p>
+<% end %>
