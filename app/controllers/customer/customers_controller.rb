@@ -2,12 +2,16 @@ class Customer::CustomersController < ApplicationController
   before_action :authenticate_customer!, except: [:index, :show]
 
   def index
-    @customers = Customer.all
+    @customers = Customer.order(rank: "desc").page(params[:page]).per(10)
   end
 
   def show
     @customer = Customer.find(params[:id])
-    @questions = @customer.questions.includes(:tags).page(params[:page]).per(10)
+    if customer_signed_in?
+      @questions = @customer.questions.includes(:tags, :favorites, :results).page(params[:page]).per(10)
+    else
+      @questions = @customer.questions.includes(:tags).page(params[:page]).per(10)
+    end
   end
 
   def edit

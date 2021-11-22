@@ -10,8 +10,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
+        <li><%= link_to 'Artisan', artisan_question_path(Question.all.offset(rand(Question.all.count)).first), class: 'fas fa-utensils nav-link text-light' %></li>
+        <li><%= link_to '設問検索', questions_path, class: 'fas fa-question-circle nav-link text-light' %></li>
+        <li><%= link_to 'ランキング', customers_path, class: 'fas fa-crown nav-link text-light' %></li>
         <li><%= link_to 'ログイン', new_customer_session_path, class: 'fas fa-blog nav-link text-light' %></li>
-        <li><%= link_to 'Q', questions_path, class: 'fas fa-bullhorn nav-link text-light' %></li>
       </ul>
     </div>
   </nav>

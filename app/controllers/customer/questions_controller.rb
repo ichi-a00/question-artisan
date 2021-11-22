@@ -1,16 +1,20 @@
 class Customer::QuestionsController < ApplicationController
   before_action :set_question!, only: %i[ show edit update destroy artisan result ]
-  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result, :search]
-  before_action :ensure_correct_customer!, only: [:edit, :update, :destroy]
+  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result, :search, :alltags]
+  before_action :ensure_correct_customer!, only: [:show, :edit, :update, :destroy]
   before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
   before_action :initialize_answer, only: [:new, :answer_format]
 
   # GET /questions
   def index
     @content = params[:content]
-    @questions = Question.includes(:tags, :tag_taggings).search(@content).page(params[:page]).per(20)
-    @tags = Question.tag_counts_on(:tags).order('count DESC')
-    #binding.pry
+    @column = params[:column]
+    if customer_signed_in?
+      @questions = Question.includes(:tags, :favorites, :results).search(@content, @column).page(params[:page]).per(10)
+    else
+      @questions = Question.includes(:tags).search(@content, @column).page(params[:page]).per(10)
+    end
+    @tags = Question.tag_counts_on(:tags).most_used(10).order('count DESC')
   end
 
   # GET /questions/1
@@ -55,15 +59,21 @@ class Customer::QuestionsController < ApplicationController
   def answer_format
   end
 
+  def alltags
+    @tags = Question.tag_counts_on(:tags).order('count DESC')
+  end
+
   def artisan
     impressionist(@question, nil, unique: [:impressionable_id, :ip_address])
     @tags = @question.tag_counts_on(:tags).order('count DESC')
+    @comments = @question.comments.includes(:customer).order(id: "desc").page(params[:page]).per(10)
   end
 
   #too fat
   def result
     #回答セット
-    @your_answers = params[:your_answers]
+    @your_answers = params[:your_answers] || []
+
     @correct = false
     @rankup = false
 
@@ -88,7 +98,7 @@ class Customer::QuestionsController < ApplicationController
 
     #ユーザ登録済みなら、クリア状況と経験値更新
     if customer_signed_in?
-      #クリア状況
+      #クリアランプ更新
       if @question.result?(current_customer)
         result = current_customer.results.find_by(question_id: @question.id)
       else
@@ -148,8 +158,7 @@ class Customer::QuestionsController < ApplicationController
     def ensure_correct_customer!
       @question = Question.find(params[:id])
       unless @question.customer == current_customer
-        flash[:alert] = 'error!'
-        redirect_to questions_path
+        redirect_to artisan_question_path(@question)
       end
     end
 

@@ -1,9 +1,16 @@
 <% if customer_signed_in? %>
   <% if customer != current_customer %>
     <% if current_customer.following?(customer) %>
-      <%= link_to "フォロー解除", customer_follows_path(customer), method: :delete, class:"btn btn-danger text-light", remote: true %>
+      <div class="dropdown">
+        <a class="btn btn-success rounded-pill dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          フォロー中
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <%= link_to "フォロー解除", customer_follows_path(customer), method: :delete, class:"dropdown-item text-danger", remote: true %>
+        </div>
+      </div>
     <% else %>
-      <%= link_to "フォローする", customer_follows_path(customer), method: :post, class:"btn btn-success text-light", remote: true %>
-     <% end %>
+      <%= link_to "フォローする", customer_follows_path(customer), method: :post, class:"btn btn-light rounded-pill border-success text-success", remote: true %>
+    <% end %>
   <% end %>
 <% end %>

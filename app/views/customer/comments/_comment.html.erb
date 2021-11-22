@@ -1,8 +1,10 @@
-<% question.comments.includes(:customer).each do |com| %>
+<% comments.each do |com| %>
   <tr>
     <td>
-      <%= attachment_image_tag com.customer, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></br>
-      <%= com.customer.nickname %>
+      <%= link_to customer_path(com.customer) do %>
+        <%= attachment_image_tag com.customer, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %></br>
+        <%= com.customer.nickname %>
+      <% end %>
     </td>
     <td><%= com.body %></td>
     <td><%= com.created_at.strftime('%Y/%m/%d %H:%M') %></td>
@@ -13,3 +15,4 @@
     </td>
   <tr>
 <% end %>
+<%= paginate comments %>

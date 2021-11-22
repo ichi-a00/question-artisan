@@ -16,9 +16,9 @@
     <div class="row no-gutters">
       <div class="col-md-5">
         <div class="card-header d-flex flex-column align-items-center">
-          <div><%= attachment_image_tag current_customer, :image, :fill, 120, 120, format: 'jpeg', fallback: "no_image.jpg" %></div>
+          <div><%= attachment_image_tag current_customer, :image, :fill, 120, 120, format: 'jpeg', fallback: "no_image.jpg", size:'120x120' %></div>
         </div>
-        <div class="card-header">
+        <div class="card-body">
           <%= form.attachment_field :image, placeholder: "プロフィール画像" %>
         </div>
       </div>
@@ -63,7 +63,9 @@
 
 <% end %>
 
-<h1 class="mt-4">Or More?</h1>
+<%= link_to "Back", customer_path(current_customer), class: 'fas fa-user nav-link' %>
+
+<h1 class="mt-5">Or More?</h1>
 
 <div class="actions">
   <%= link_to "パスワードを変更する", edit_customer_registration_path(current_customer), class:"btn btn-info" %>

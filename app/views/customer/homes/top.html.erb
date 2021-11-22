@@ -1,10 +1,3 @@
-<h1>Customer::Homes#top</h1>
-<p>Find me in app/views/customer/homes/top.html.erb</p>
+<h1>New Questions</h1>
 
-<% if @tags.present? %>
-  <% @tags.each do |tag| %>
-    <%= link_to "#{tag.name}(#{tag.taggings_count})", questions_path(tag.id) %>
-  <% end %>
-<% else %>
-  <p>登録されているタグはありません</p>
-<% end %>
+<%= render "customer/questions/list", questions: @questions %>
