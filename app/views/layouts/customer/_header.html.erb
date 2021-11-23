@@ -1,0 +1,32 @@
+<header class="header">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <h1 class="site_logo">
+      <a href="/" class="navbar-brand">Question Artisan</a>
+    </h1>
+
+    <div class="text-light">
+      <span class=""><%= attachment_image_tag current_customer, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg", size:'60x60' %></span>
+      <span class="mx-1"><%= current_customer.nickname %></span>
+      <span class="mr-1">Rank:<%= current_customer.rank %></span>
+    </div>
+    <div class="progress w10">
+      <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style=<%= "width:" + current_customer.next_rank_percent.to_s + "%;" %> aria-valuenow=<%= current_customer.next_rank_percent.to_i %> aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+    <div class="text-light mx-1">あと<%= current_customer.next_rank_exp %></div>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li><%= link_to 'Artisan', artisan_question_path(Question.all.offset(rand(Question.all.count)).first), class: 'fas fa-utensils nav-link text-light' %></li>
+        <li><%= link_to '設問検索', questions_path, class: 'fas fa-question-circle nav-link text-light' %></li>
+        <li><%= link_to '設問作成', new_question_path, class: 'fas fa-edit nav-link text-light' %></li>
+        <li><%= link_to 'ランキング', customers_path, class: 'fas fa-crown nav-link text-light' %></li>
+        <li><%= link_to 'マイページ', customer_path(current_customer), class: 'fas fa-user nav-link text-light' %></li>
+        <li><%= link_to 'ログアウト', destroy_customer_session_path, method: :delete, class: 'fas fa-leaf nav-link text-light' %></li>
+      </ul>
+    </div>
+  </nav>
+</header>

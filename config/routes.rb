@@ -10,22 +10,13 @@ Rails.application.routes.draw do
 
     resources :customers, except: [:new, :create, :destroy]
     resources :questions do
+      collection do
+        post 'import'
+      end
       member do
         resources :answers, only: [:edit, :create, :update, :destroy]
       end
     end
-    # resources :order_details, only: [:update]
-    # resources :customers, only: [:index, :show, :edit, :update]
-    # resources :products, except: [:destroy] do
-    #   collection do
-    #     get 'search'
-    #   end
-    # end
-    # resources :genres, only: [:index, :create, :edit, :update] do
-    #   member do
-    #     get '/' => 'genres#index'
-    #   end
-    # end
   end
 
   devise_for :customers, skip: :all
@@ -48,51 +39,32 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get '/about' => 'homes#about'
 
-    resource :customers, only: [:edit, :update] do
+    resources :customers, only: [:edit, :update, :show, :index] do
       collection do
-        get 'mypage' => 'customers#show'
-        get '/' => 'customers#show'
         get 'unsubscribe'
         patch 'withdraw'
       end
+      resource :follows, only: [:create, :destroy] do
+        # users/:user_id/relarionships/follows　みたいにしたい
+        get 'followings'
+        get 'followers'
+      end
     end
+
     resources :questions do
       collection do
         get "answer_format" => 'questions#answer_format', as: :answer_format
+        get 'get_tag_search', defaults: { format: 'json' }
+        get "alltags"
       end
       member do
         get "artisan" => 'questions#artisan', as: :artisan
         post "result" => 'questions#result', as: :result
+        get 'get_tag_search', defaults: { format: 'json' }
       end
     end
-    # resources :cart_products, only: [:index, :create, :update, :destroy] do
-    #   collection do
-    #     delete 'destroy_all'
-    #   end
-    # end
-    # resources :orders, only: [:new, :create, :index, :show] do
-    #   collection do
-    #     get 'confirm'
-    #     post 'confirm'
-    #     get 'thanks'
-    #   end
-    # end
-    # resource :customers, only: [:edit, :update] do
-    #   collection do
-    #     get 'mypage' => 'customers#show'
-    #     get '/' => 'customers#show'
-    #     get 'unsubscribe'
-    #     patch 'withdraw'
-    #   end
-    # end
-    # resources :deliveries, except: [:new, :show] do
-    #   member do
-    #     get '/' => 'deliveries#index'
-    #   end
-    # end
   end
 
   resources :ranks
-
 
 end

@@ -1,23 +1,16 @@
-<div class="nested-fields">
+<div class="nested-fields my-1">
   <!--問題形式によって分岐-->
   <% case question_format
        when "bool" %>
 
         <!-- ○×: チェックしたらほかが外れるjs、選択肢は増減できない　-->
-        <%= f.label :is_correct %>
         <%= f.check_box :is_correct, {onclick: "choose_one(this)", class: "choose_one_list", tabindex: 1}, 1, 0  %>
-
-        <%= f.label :content %>
         <%= f.text_field :content %>
-
 
     <% when "choose_one" %>
 
         <!-- 一つを選ぶ形式: チェックしたらほかが外れるjs、選択肢は増減できる　-->
-        <%= f.label :is_correct %>
         <%= f.check_box :is_correct, {onclick: "choose_one(this)", class: "choose_one_list", tabindex: 1}, 1, 0  %>
-
-        <%= f.label :content %>
         <%= f.text_field :content %>
 
         <%= link_to_remove_association "削除", f %>
@@ -25,10 +18,7 @@
     <% when "choose_multi" %>
 
         <!-- 複数を選ぶ形式: 普通のチェックボックス、選択肢は増減できる　-->
-        <%= f.label :is_correct %>
         <%= f.check_box :is_correct, {tabindex: 1}, 1, 0 %>
-
-        <%= f.label :content %>
         <%= f.text_field :content %>
 
         <%= link_to_remove_association "削除", f %>

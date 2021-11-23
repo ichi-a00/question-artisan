@@ -1,0 +1,54 @@
+<div class="exp">
+  <% if correct %>
+    <h1 class="text-danger"><i class="fas fa-smile-wink">正解</i></h1>
+  <% else %>
+    <h1 class="text-primary"><i class="fas fa-frown-open">不正解</i></h1>
+  <% end %>
+</div>
+
+<div class="d-flex justify-content-between align-items-end">
+  <div class="rounded border border-dark p-2">
+    <h5 class="my-2">解答と解説</h5>
+    <ul class="list-group list-group-flush">
+      <% question.answers.each do |answer| %>
+        <% if answer.is_correct %>
+          <li class="list-group-item">
+            <i class="fas fa-star text-warning"></i>
+            <%= answer.content %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <div class="my-2"><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpg", size:'100x100' %></div>
+    <div><%= question.explanation %></div>
+  </div>
+  <div class="customer">
+    <p>この設問の作者</p>
+    <p>
+      <%= link_to customer_path(question.customer) do %>
+        <%= attachment_image_tag question.customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", size:'100x100' %>
+        <%= question.customer.nickname %>さん
+      <% end %>
+    </p>
+    <div class="follow-btn-<%= question.customer.id %>">
+      <%= render "customer/follows/follow", customer: question.customer %>
+    </div>
+  </div>
+</div>
+
+<div class="rankup my-4 rounded">
+  <% if customer_signed_in? %>
+    <% if correct %>
+      <p>経験値を<%= ENV["CORRECT_EXP"] %>獲得しました。</p>
+    <% else%>
+      <p>経験値を<%= ENV["INCORRECT_EXP"] %>獲得しました。</p>
+    <% end %>
+    <% if rankup %>
+      <h1><i class="fas fa-award text-warning">RANK UP！</i></h1>
+      <p>Your Rank: <%= current_customer.rank %></p>
+    <% end %>
+    <p>RANK UPまでに必要な経験値：<%= current_customer.next_rank_exp %></p>
+  <% else %>
+      <p><%= link_to 'ログイン', new_customer_session_path, class: 'fas fa-blog' %>すると経験値を貯めてRankを上げられるようになります。設問作成もできます。</p>
+  <% end %>
+</div>

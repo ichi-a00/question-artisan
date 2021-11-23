@@ -17,5 +17,13 @@
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
+<<<<<<< HEAD
 //= require_tree .
 //= require cocoon
+=======
+//= require cocoon
+//= require refile
+//= require jquery-ui
+//= require tag-it.min
+//= require_tree .
+>>>>>>> d0ec2e5c8be47f707fbcd87f7e8f9f12c7aa3a1a

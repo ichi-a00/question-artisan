@@ -10,9 +10,18 @@
   </head>
 
   <body>
-    <%= render 'layouts/header' %>
-    <p id="notice"><%= notice %></p>
-    <p id="alert"><%= alert %></p>
-    <%= yield %>
+    <% if request.fullpath.include?("/admin") %>
+      <%= render "layouts/admin/header" %>
+      <%= render "layouts/admin/main" %>
+      <%= render "layouts/admin/footer" %>
+    <% elsif customer_signed_in? %>
+      <%= render "layouts/customer/header" %>
+      <%= render "layouts/main" %>
+      <%= render "layouts/customer/footer" %>
+    <% else %>
+      <%= render "layouts/header" %>
+      <%= render "layouts/main" %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>

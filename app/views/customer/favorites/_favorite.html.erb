@@ -1,0 +1,11 @@
+<% if customer_signed_in? %>
+  <% if question.favorited_by?(current_customer) %>
+    <%= link_to question_favorites_path(question), method: :delete, remote: true do %>
+      <i class="fas fa-thumbs-up text-warning"><%= question.favorites.size %></i>
+    <% end %>
+  <% else %>
+    <%= link_to question_favorites_path(question), method: :post, remote: true do %>
+      <i class="far fa-thumbs-up text-light"><%= question.favorites.size %></i>
+    <% end %>
+  <% end %>
+<% end %>

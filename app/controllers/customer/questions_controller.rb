@@ -1,13 +1,20 @@
 class Customer::QuestionsController < ApplicationController
   before_action :set_question!, only: %i[ show edit update destroy artisan result ]
-  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result]
-  before_action :ensure_correct_customer!, only: [:edit, :update, :destroy]
+  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result, :search, :alltags]
+  before_action :ensure_correct_customer!, only: [:show, :edit, :update, :destroy]
   before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
   before_action :initialize_answer, only: [:new, :answer_format]
 
   # GET /questions
   def index
-    @questions = Question.all
+    @content = params[:content]
+    @column = params[:column]
+    if customer_signed_in?
+      @questions = Question.includes(:tags, :favorites, :results).search(@content, @column).page(params[:page]).per(10)
+    else
+      @questions = Question.includes(:tags).search(@content, @column).page(params[:page]).per(10)
+    end
+    @tags = Question.tag_counts_on(:tags).most_used(10).order('count DESC')
   end
 
   # GET /questions/1
@@ -52,13 +59,21 @@ class Customer::QuestionsController < ApplicationController
   def answer_format
   end
 
+  def alltags
+    @tags = Question.tag_counts_on(:tags).order('count DESC')
+  end
+
   def artisan
+    impressionist(@question, nil, unique: [:impressionable_id, :ip_address])
+    @tags = @question.tag_counts_on(:tags).order('count DESC')
+    @comments = @question.comments.includes(:customer).order(id: "desc").page(params[:page]).per(10)
   end
 
   #too fat
   def result
     #回答セット
-    @your_answers = params[:your_answers]
+    @your_answers = params[:your_answers] || []
+
     @correct = false
 
     #回答判定
@@ -70,8 +85,7 @@ class Customer::QuestionsController < ApplicationController
       #バグ? collection_check_boxesで送ると最初に""がつくから消す。
       @your_answers.shift
       @your_answers.map!{|x| x.to_i}
-
-      if @your_answers == @question.correct_answers.ids
+      if @question.correct_answers.ids  == @your_answers
         @correct = true
       end
     end
@@ -85,7 +99,7 @@ class Customer::QuestionsController < ApplicationController
 
     #ユーザ登録済みなら、クリア状況と経験値更新
     if customer_signed_in?
-      #クリア状況
+      #クリアランプ更新
       if @question.result?(current_customer)
         result = current_customer.results.find_by(question_id: @question.id)
       else
@@ -104,16 +118,20 @@ class Customer::QuestionsController < ApplicationController
         current_customer.experience_point += ENV["INCORRECT_EXP"].to_i
       end
       current_customer.save!
+      @rankup = current_customer.rankup?
 
       #解かれた側の経験値
       if current_customer != @question.customer
         @question.customer.experience_point += ENV["ANSWERED_EXP"].to_i
         @question.customer.save!
+        @question.customer.rankup?
       end
     end
-
   end
 
+  def get_tag_search
+    @tags = Question.tag_counts_on(:tags).where('name LIKE(?)', "%#{params[:key]}%")
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -133,6 +151,7 @@ class Customer::QuestionsController < ApplicationController
         :answer_image,
         :answered_time,
         :correct_answered_time,
+        :tag_list,
         answers_attributes: [:id, :content, :is_correct, :order, :_destroy]
         )
     end
@@ -140,8 +159,7 @@ class Customer::QuestionsController < ApplicationController
     def ensure_correct_customer!
       @question = Question.find(params[:id])
       unless @question.customer == current_customer
-        flash[:alert] = 'error!'
-        redirect_to questions_path
+        redirect_to artisan_question_path(@question)
       end
     end
 

@@ -1,0 +1,5 @@
+<% if customer_signed_in? && question.favorited_by?(current_customer) %>
+    <i class="fas fa-thumbs-up text-warning"><%= question.favorites_count %></i>
+<% else %>
+    <i class="far fa-thumbs-up text-light"><%= question.favorites_count %></i>
+<% end %>

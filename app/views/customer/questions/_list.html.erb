@@ -1,0 +1,54 @@
+<% questions.each do |question| %>
+  <div class="card bg-secondary mb-3">
+    <%= link_to question_path(question), class:"text-light" do %>
+      <div class="row no-gutters">
+        <div class="col-md-2 card-header d-flex justify-content-center align-items-center">
+          <%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpeg", size:'100x100' %>
+        </div>
+        <div class="col-md-10">
+          <div class="card-header">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex justify-content-start align-items-center">
+                <div class="badge bg-dark text-light"><%= question.format %></div>
+                <div class="mx-3">
+                  <% if customer_signed_in? %>
+                    <% if question.result?(current_customer) %>
+                      <% if current_customer.results.find_by(question_id: question.id).is_cleared %>
+                        <span class="text-warning"><i class="fas fa-check-circle"></i>
+                      <% else %>
+                        <span class="text-light"><i class="fas fa-check-circle"></i>
+                      <% end %>
+                    <% else %>
+                      <span class="text-light"><i class="far fa-check-circle"></i>
+                    <% end %>
+                  <% end %>
+                </div>
+                <div class="mx-3"><%= render "customer/favorites/favorite_count", question: question %></div>
+              </div>
+              <div class="tag_lists">
+                <% if question.tags.present? %>
+                  <i class="fas fa-tags"></i>
+                  <% question.tags.each do |tag| %>
+                    <span class="badge rounded-pill bg-primary text-light my-1"><%= tag.name %></span>
+                  <% end %>
+                <% else %>
+                  <p>登録されているタグはありません</p>
+                <% end %>
+              </div>
+            </div>
+            <div class="">
+              <h4 class="card-title"><%= question.title %></h4>
+            </div>
+          </div>
+          <div class="card-body bg-light text-dark d-flex justify-content-between align-items-end">
+            <div><p class="card-text"><%= question.sentence %></p></div>
+            <div>
+              正答率：<%= question.correct_answer_rate  %>%
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+

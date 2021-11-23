@@ -1,18 +1,93 @@
+<h1>Artisan</h1>
+<div class="card bg-secondary mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-2 card-header d-flex justify-content-center align-items-center">
+      <%= attachment_image_tag @question, :question_image, :fill, 120, 120, format: 'jpeg', fallback: "no_image_square.jpeg", size:'120x120' %>
+    </div>
+    <div class="col-md-10">
+      <div class="card-header text-light">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-start align-items-center">
+            <div class="badge bg-dark text-light"><%= @question.format %></div>
+            <div class="mx-3 favorite-btn-<%= @question.id %>">
+              <%= render 'customer/favorites/favorite', question: @question %>
+            </div>
+          </div>
+          <div class="tag_lists"><%= render "tags", tags: @question.tags %></div>
+        </div>
+        <div class="">
+          <h4 class="card-title"><%= @question.title %></h4>
+        </div>
+      </div>
+      <div class="card-body bg-light text-dark">
+        <div class="d-flex justify-content-between align-items-center my-3">
+          <div class="border border-dark rounded w-75 p-3"><p class="card-text"><%= @question.sentence %></p></div>
+          <div>
+            正答率：<%= @question.correct_answer_rate %>%
+          </div>
+        </div>
+        <div id="artisan_area">
+          <%= form_with url: result_question_path, remote: true do |f| %>
+            <% case @question.format
+              when "writing" %>
+                <p class="card-text">記述</p>
+                <span class="card-text"><%= f.text_field :your_answers %></span>
+              <% when "choose_multi" %>
+                <p class="card-text">選択肢(複数選択)</p>
+                <%= f.collection_check_boxes :your_answers, @question.answers.all, :id, :content, {checked: 1, include_hidden: false} do |answer| %>
+                  <span class="card-text m-2"><%= answer.label {answer.check_box + answer.text} %></span>
+                <% end %>
+              <% else %>
+                <p class="card-text">選択肢(1つ選択)</p>
+                <%= f.collection_check_boxes :your_answers, @question.answers.all, :id, :content, {checked: 1, include_hidden: false}, {onclick: "choose_one(this)", class: "choose_one_list"} do |answer| %>
+                  <span class="card-text m-2"><%= answer.label {answer.check_box + answer.text} %></span>
+                <% end %>
+            <% end %>
+            <div class="my-2"><%= f.submit "回答", class: "btn btn-primary", onclick: "display_none(this)" %></div>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-body bg-light" id="result"></div>
+      <div class="card-footer bg-light">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">回答数：<%= @question.answered_time %></li>
+          <li class="list-group-item">正解数：<%= @question.correct_answered_time %></li>
+          <li class="list-group-item">Unique Impression：<%= @question.impressions_count %></li>
+          <li class="list-group-item">作成日：<%= @question.created_at.strftime('%Y/%m/%d') %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>問題：<%= @question.sentence %></p>
+<h4 class="my-3">コメント一覧(<%= @question.comments.size %>) <button class="btn btn-raised btn-secondary" data-toggle="button" id="comments-btn">表示</button></h4>
 
-
-<%= form_with url: result_question_path, local: true do |f| %>
-  <% case @question.format
-    when "writing" %>
-      <p>記述</p>
-      <%= f.text_field :your_answers %>
-    <% else %>
-      <p>選択肢</p>
-      <ul><li><%= f.collection_check_boxes :your_answers, @question.answers.all, :id, :content %></li></ul>
+<div class="mt-3 mb-4">
+  <% if customer_signed_in? %>
+    <%= form_with(model:[@question, Comment.new], id: "create_comment", remote: true) do |f| %>
+      <div class="mt-2"><%= f.text_area :body, size: "35*3",  placeholder: "コメント", class:"new-comment" %></div>
+      <div><%= f.submit class:"btn btn-success" %></div>
+    <% end %>
+  <% else %>
+    <p><%= link_to 'ログイン', new_customer_session_path, class: 'fas fa-blog' %>するとコメントできます。</p>
   <% end %>
+</div>
 
-<%= f.submit "回答" %>
-<% end %>
+<div class="my-3" id="comments">
+  <table class="table">
+    <thead class="">
+      <tr>
+        <th>ユーザー</th>
+        <th>内容</th>
+        <th>時間</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="comment">
+      <%= render 'customer/comments/comment', comments: @comments %>
+    </tbody>
+  </table>
+</div>
 
-<%= link_to 'Back', questions_path %>
+<span class="mr-2"><%= link_to 'Edit', edit_question_path(@question), class:"fa fa-edit" %></span>
+<span class="mr-2"><%= link_to 'Back', questions_path, class:"fas fa-question-circle" %></span>

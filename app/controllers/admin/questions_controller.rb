@@ -5,7 +5,16 @@ class Admin::QuestionsController < ApplicationController
 
   # GET /questions
   def index
-    @questions = Question.all
+    #N+1
+    @questions = Question.includes(:customer).all
+
+    #csv出力用
+    respond_to do |format|
+      format.html
+      format.csv do |csv|
+        export(@questions)
+      end
+    end
   end
 
   # GET /questions/1
@@ -44,6 +53,27 @@ class Admin::QuestionsController < ApplicationController
   def destroy
     @question.destroy
     redirect_to admin_questions_path, notice: "Question was successfully destroyed."
+  end
+
+  # csv export
+  def export(questions)
+    csv_data = CSV.generate do |csv|
+      header = %w(id customer_id title sentence format explanation)
+      csv << header
+
+      questions.each do |question|
+        values = [question.id, question.customer_id, question.title, question.sentence, question.format, question.explanation]
+        csv << values
+      end
+
+    end
+    send_data(csv_data, filename: "questions.csv")
+  end
+
+  #csv import
+  def import
+    Question.import(params[:file])
+    redirect_to admin_questions_path
   end
 
   private

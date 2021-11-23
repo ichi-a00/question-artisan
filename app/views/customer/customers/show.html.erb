@@ -1,27 +1,49 @@
-<p>
-  <strong>image:</strong>
-  <%= attachment_image_tag current_customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-</p>
+<h1>Profile</h1>
+<div class="card bg-warning border-dark mb-3">
+  <div class="row no-gutters">
+    <div class="col-md-3 card-header d-flex justify-content-center align-items-center">
+        <div><%= attachment_image_tag @customer, :image, :fill, 150, 150, format: 'jpeg', fallback: "no_image.jpg", size:'150x150' %></div>
+    </div>
+    <div class="col-md-9">
+      <div class="card-header d-flex justify-content-between">
+        <div class="d-flex justify-content-start align-items-center">
+          <h4 class=""><%= @customer.nickname %></h4>
+          <div class="mx-3">Rank:<%= @customer.rank %></div>
+        </div>
+        <div class="d-flex justify-content-end align-items-center">
+          <div class="mx-3">投稿数：<%= @customer.questions_count %></div>
+          <div class="follow-btn-<%= @customer.id %> mx-1"><%= render "customer/follows/follow", customer: @customer %></div>
+          <div class="">
+            <i class="fas fa-sign-out-alt fa-lg text-danger mx-1"></i><%= link_to @customer.following_count, followings_customer_follows_path(@customer), class:"btn btn-outline-danger" %>
+            <i class="fas fa-sign-in-alt fa-lg text-primary mx-1"></i><%= link_to @customer.followed_count, followers_customer_follows_path(@customer), class:"btn btn-outline-primary" %>
+          </div>
+        </div>
+      </div>
+      <div class="card-body bg-light text-dark d-flex justify-content-between align-items-end">
+        <div><%= @customer.introduction %></div>
+      </div>
+      <div class="card-body bg-light text-dark d-flex justify-content-start">
+        <% if customer_signed_in? && @customer.id == current_customer.id %>
+          <div>総経験値：<%= @customer.experience_point %></div>
+          <div class="mx-3">次まで：<%= @customer.next_rank_exp %></div>
+        <% end %>
+      </div>
+      <div class="card-footer bg-light text-dark d-flex justify-content-start">
+        <div class="mr-3">登録日：<%= @customer.created_at.strftime('%Y/%m/%d') %></div>
+        <% if customer_signed_in? && @customer.id == current_customer.id %>
+          <div><%= @customer.email %></div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
 
-<p>
-  <strong>nickname:</strong>
-  <%= current_customer.nickname %>
-</p>
+<% if customer_signed_in? && @customer.id == current_customer.id %>
+  <%= link_to 'Edit', edit_customer_path(@customer), class: 'fas fa-user-edit nav-link' %>
+<% end %>
 
-<p>
-  <strong>introduction:</strong>
-  <%= current_customer.introduction %>
-</p>
+<h1 class="mt-5">Questions</h1>
 
-<p>
-  <strong>rank:</strong>
-  <%= current_customer.rank %>
-</p>
-
-<p>
-  <strong>Experience point:</strong>
-  <%= current_customer.experience_point %>
-</p>
-
-<%= link_to 'Edit', edit_customers_path %> |
-<%= link_to 'Back', root_path %>
+<div class="">
+  <%= render "customer/questions/list", questions: @questions %>
+</div>

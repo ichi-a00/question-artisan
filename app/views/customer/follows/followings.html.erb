@@ -1,0 +1,3 @@
+<h2><%= @customer.nickname %>さんのフォロー一覧</h2>
+
+<%= render "customer/customers/index", customers: @customer.following_customers.order(rank: "desc").page(params[:page]).per(10) %>

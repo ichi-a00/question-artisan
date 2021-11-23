@@ -82,14 +82,14 @@
   </tbody>
 </table>
 <p>add</p>
-    <%= form_with model: [:admin, Answer.new], local: true do |aform| %>
-      <%= aform.hidden_field :question_id, :value => @question.id %>
-<table>
-  <tbody>
+<%= form_with model: [:admin, Answer.new], local: true do |aform| %>
+  <%= aform.hidden_field :question_id, :value => @question.id %>
+  <table>
+    <tbody>
       <tr>
         <td>
-          <%= aform.label :is_correct %>
-          <%= aform.text_field :is_correct %>
+          <%= aform.label :is_correct, "正解なら✔" %>
+          <%= aform.check_box :is_correct, {}, 1, 0  %>
         </td>
         <td>
           <%= aform.label :content %>
