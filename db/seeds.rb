@@ -19,4 +19,39 @@ admin_customer = Customer.new(
   password: "adminsan"
   )
 
+rank = Rank.new(rank: 101, experience_point: 999999999)
+rank.save!
+
+question = Question.new(
+  customer_id: 0,
+  title: "First Question",
+  sentence: "このサイトの名前は？",
+  format: "choose_one",
+  explanation: "Artisan: 職人"
+  )
+question.save!
+
+Answer.create!(
+  [
+    {
+      question_id: question.id,
+      content: "Question Artisan",
+      is_correct: true
+    },
+    {
+      question_id: question.id,
+      content: "Question Artist",
+      is_correct: false
+    },
+    {
+      question_id: question.id,
+      content: "Question Answer",
+      is_correct: false
+    },
+    {
+      question_id: question.id,
+      content: "Question Alchemist",
+      is_correct: false
+    }
+  ])
 admin_customer.save!
