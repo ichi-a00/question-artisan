@@ -18,6 +18,7 @@ admin_customer = Customer.new(
   email: "admin@admin",
   password: "adminsan"
   )
+admin_customer.save!
 
 rank = Rank.new(rank: 101, experience_point: 999999999)
 rank.save!
@@ -54,4 +55,3 @@ Answer.create!(
       is_correct: false
     }
   ])
-admin_customer.save!
