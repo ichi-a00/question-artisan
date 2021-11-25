@@ -73,7 +73,6 @@ class Customer::QuestionsController < ApplicationController
   def result
     #回答セット
     @your_answers = params[:your_answers] || []
-
     @correct = false
     @rankup = false
 

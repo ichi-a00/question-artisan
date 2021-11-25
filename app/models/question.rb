@@ -19,7 +19,7 @@ class Question < ApplicationRecord
     writing: 3,       # 記述
     #letter_sort: 4,  # ならべかえ
     #order: 5,        # 順番あて
-    #panel: 6,        # パネル()
+    #panel: 6,        # パネル
   }
 
   belongs_to :customer

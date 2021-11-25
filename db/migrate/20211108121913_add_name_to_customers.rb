@@ -7,3 +7,4 @@ class AddNameToCustomers < ActiveRecord::Migration[5.2]
     add_column :customers, :is_valid,         :boolean, null: false, default: true
   end
 end
+
