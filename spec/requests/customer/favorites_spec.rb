@@ -5,3 +5,4 @@ RSpec.describe "Customer::Favorites", type: :request do
     pending "add some examples (or delete) #{__FILE__}"
   end
 end
+
