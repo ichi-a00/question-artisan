@@ -45,7 +45,6 @@ Rails.application.routes.draw do
         patch 'withdraw'
       end
       resource :follows, only: [:create, :destroy] do
-        # users/:user_id/relarionships/follows　みたいにしたい
         get 'followings'
         get 'followers'
       end
