@@ -61,6 +61,8 @@ Rails.application.routes.draw do
         post "result" => 'questions#result', as: :result
         get 'get_tag_search', defaults: { format: 'json' }
       end
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
     end
   end
 
