@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 2021_11_20_144920) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "question_id", null: false
+    t.integer "customer_id", null: false
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -42,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_11_20_144920) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "nickname", default: "", null: false
-    t.integer "rank", default: 0, null: false
+    t.integer "rank", default: 1, null: false
     t.integer "experience_point", default: 0, null: false
     t.string "image_id", default: "", null: false
     t.boolean "is_valid", default: true, null: false
@@ -102,7 +110,7 @@ ActiveRecord::Schema.define(version: 2021_11_20_144920) do
     t.string "title", null: false
     t.text "sentence", null: false
     t.integer "format", null: false
-    t.text "explanation", default: "", null: false
+    t.text "explanation"
     t.string "question_image_id", default: "", null: false
     t.string "answer_image_id", default: "", null: false
     t.integer "answered_time", default: 0, null: false
