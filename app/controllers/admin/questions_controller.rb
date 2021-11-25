@@ -6,7 +6,7 @@ class Admin::QuestionsController < ApplicationController
   # GET /questions
   def index
     #N+1
-    @questions = Question.includes(:customer).all
+    @questions = Question.includes(:customer).all.page(params[:page]).per(10)
 
     #csv出力用
     respond_to do |format|

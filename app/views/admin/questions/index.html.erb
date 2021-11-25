@@ -24,8 +24,8 @@
         <td><%= question.sentence %></td>
         <td><%= question.format %></td>
         <td><%= question.explanation %></td>
-        <td><%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
-        <td><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+        <td><%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg" %></td>
+        <td><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg" %></td>
         <td><%= question.answered_time %></td>
         <td><%= question.correct_answered_time %></td>
         <td><%= link_to 'Show', admin_question_path(question) %></td>

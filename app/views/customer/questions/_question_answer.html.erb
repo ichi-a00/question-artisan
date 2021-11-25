@@ -29,7 +29,7 @@
         <%= form.label :question_image %>
       </div>
       <div class="col-md-9 card-body bg-light text-dark">
-        <div><%= attachment_image_tag question, :question_image, :fill, 120, 120, format: 'jpeg', fallback: "no_image_square.jpg", size:'120x120' %></div>
+        <div><%= attachment_image_tag question, :question_image, :fill, 120, 120, format: 'jpg', fallback: "no_image_square.jpg", size:'120x120' %></div>
         <div class="my-1"><%= form.attachment_field :question_image %></div>
       </div>
     </div>
@@ -102,7 +102,7 @@
         <%= form.label :answer_image %>
       </div>
       <div class="col-md-9 card-body bg-light text-dark">
-        <div><%= attachment_image_tag @question, :answer_image, :fill, 120, 120, format: 'jpeg', fallback: "no_image_square.jpg", size:'120x120' %></div>
+        <div><%= attachment_image_tag @question, :answer_image, :fill, 120, 120, format: 'jpg', fallback: "no_image_square.jpg", size:'120x120' %></div>
         <div class="my-1"><%= form.attachment_field :answer_image, placeholder: "解説画像" %></div>
       </div>
     </div>

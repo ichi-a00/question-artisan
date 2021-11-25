@@ -19,14 +19,14 @@
         <% end %>
       <% end %>
     </ul>
-    <div class="my-2"><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpg", size:'100x100' %></div>
+    <div class="my-2"><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpg', fallback: "no_image_square.jpg", size:'100x100' %></div>
     <div><%= question.explanation %></div>
   </div>
   <div class="customer">
     <p>この設問の作者</p>
     <p>
       <%= link_to customer_path(question.customer) do %>
-        <%= attachment_image_tag question.customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg", size:'100x100' %>
+        <%= attachment_image_tag question.customer, :image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg", size:'100x100' %>
         <%= question.customer.nickname %>さん
       <% end %>
     </p>

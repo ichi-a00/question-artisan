@@ -20,7 +20,7 @@
     <% @customers.each do |customer| %>
       <tr>
         <td><%= customer.id %></td>
-        <td><%= attachment_image_tag customer, :image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %></td>
+        <td><%= attachment_image_tag customer, :image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg" %></td>
         <td><%= customer.nickname %></td>
         <td><%= customer.email %></td>
         <td><%= customer.rank %></td>

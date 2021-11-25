@@ -5,7 +5,7 @@
     </h1>
 
     <div class="text-light">
-      <span class=""><%= attachment_image_tag current_customer, :image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg", size:'60x60' %></span>
+      <span class=""><%= attachment_image_tag current_customer, :image, :fill, 60, 60, format: 'jpg', fallback: "no_image.jpg", size:'60x60' %></span>
       <span class="mx-1"><%= current_customer.nickname %></span>
       <span class="mr-1">Rank:<%= current_customer.rank %></span>
     </div>

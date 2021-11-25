@@ -16,7 +16,7 @@
     <div class="row no-gutters">
       <div class="col-md-5">
         <div class="card-header d-flex flex-column align-items-center">
-          <div><%= attachment_image_tag current_customer, :image, :fill, 120, 120, format: 'jpeg', fallback: "no_image.jpg", size:'120x120' %></div>
+          <div><%= attachment_image_tag current_customer, :image, :fill, 120, 120, format: 'jpg', fallback: "no_image.jpg", size:'120x120' %></div>
         </div>
         <div class="card-body">
           <%= form.attachment_field :image, placeholder: "プロフィール画像" %>
