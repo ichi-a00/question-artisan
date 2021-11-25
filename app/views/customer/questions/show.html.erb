@@ -2,7 +2,7 @@
 <div class="card bg-secondary mb-3">
   <div class="row no-gutters">
     <div class="col-md-2 card-header d-flex justify-content-center align-items-center">
-      <%= attachment_image_tag @question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpeg", size:'100x100' %>
+      <%= attachment_image_tag @question, :question_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpg", size:'100x100' %>
     </div>
     <div class="col-md-10">
       <div class="card-header text-light">
@@ -35,7 +35,7 @@
       </ul>
       <div class="card-body bg-light d-flex justify-content-between align-items-center">
         <div><p class="card-text"><%= @question.explanation %></p></div>
-        <div><%= attachment_image_tag @question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpeg", size:'100x100' %></div>
+        <div><%= attachment_image_tag @question, :answer_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image_square.jpg", size:'100x100' %></div>
       </div>
       <div class="card-footer bg-light">
         <div class="my-1">回答数：<%= @question.answered_time %></div>
