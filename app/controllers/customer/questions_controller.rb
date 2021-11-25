@@ -74,6 +74,7 @@ class Customer::QuestionsController < ApplicationController
     #回答セット
     @your_answers = params[:your_answers] || []
     @correct = false
+    @rankup = false
 
     #回答判定
     if  @question.format == "writing"
@@ -81,8 +82,6 @@ class Customer::QuestionsController < ApplicationController
         @correct = true
       end
     else
-      #バグ? collection_check_boxesで送ると最初に""がつくから消す。
-      @your_answers.shift
       @your_answers.map!{|x| x.to_i}
       if @question.correct_answers.ids  == @your_answers
         @correct = true
@@ -171,14 +170,15 @@ class Customer::QuestionsController < ApplicationController
       if params[:format]
         @question.format = params[:format]
       else
+        #最初は○×をセット
         @question.format = "bool"
       end
       case @question.format
-      when "bool"
-        @question.answers.build(content: "○", is_correct: true)
-        @question.answers.build(content: "×", is_correct: false)
-      else
-        @question.answers.build(is_correct: true)
+        when "bool"
+          @question.answers.build(content: "○", is_correct: true)
+          @question.answers.build(content: "×", is_correct: false)
+        else
+          @question.answers.build(is_correct: true)
       end
     end
 end
