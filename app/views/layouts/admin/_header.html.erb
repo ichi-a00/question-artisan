@@ -10,7 +10,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
-        <li><%= link_to 'ranks', ranks_path, class: 'fas fa-cookie nav-link text-light' %></li>
+        <li><%= link_to 'ranks', admin_ranks_path, class: 'fas fa-cookie nav-link text-light' %></li>
         <li><%= link_to 'adminログイン', new_admin_session_path, class: 'fas fa-user nav-link text-light' %></li>
         <li><%= link_to 'adminログアウト', destroy_admin_session_path, method: :delete, class: 'fas fa-sign-out-alt nav-link text-light' %></li>
         <li><%= link_to 'adminカスタマ一覧', admin_customers_path, class: 'fas fa-poo nav-link text-light' %></li>

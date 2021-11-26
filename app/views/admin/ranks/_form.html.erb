@@ -1,0 +1,27 @@
+<%= form_with model:[:admin, admin_rank], local: true do |form| %>
+  <% if admin_rank.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(admin_rank.errors.count, "error") %> prohibited this admin_rank from being saved:</h2>
+
+      <ul>
+      <% admin_rank.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :rank %>
+    <%= form.text_field :rank %>
+  </div>
+
+  <div>
+    <%= form.label :experience_point %>
+    <%= form.text_field :experience_point %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

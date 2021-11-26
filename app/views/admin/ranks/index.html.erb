@@ -1,0 +1,27 @@
+<h1>Admin Ranks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rank</th>
+      <th>EXP</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @admin_ranks.each do |admin_rank| %>
+      <tr>
+        <td><%= admin_rank.rank %></td>
+        <td><%= admin_rank.experience_point %></td>
+        <td><%= link_to 'Show', admin_rank_path(admin_rank) %></td>
+        <td><%= link_to 'Edit', edit_admin_rank_path(admin_rank) %></td>
+        <td><%= link_to 'Destroy', admin_rank_path(admin_rank), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Admin Rank', new_admin_rank_path %>

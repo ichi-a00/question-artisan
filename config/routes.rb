@@ -17,6 +17,7 @@ Rails.application.routes.draw do
         resources :answers, only: [:edit, :create, :update, :destroy]
       end
     end
+    resources :ranks
   end
 
   devise_for :customers, skip: :all
@@ -65,7 +66,5 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
     end
   end
-
-  resources :ranks
 
 end
