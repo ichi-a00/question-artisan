@@ -1,5 +1,5 @@
 class Admin::RanksController < ApplicationController
-  before_action :set_admin_rank, only: %i[ show edit update destroy ]
+  before_action :set_admin_rank, only: %i(show edit update destroy)
 
   # GET /admin/ranks or /admin/ranks.json
   def index
@@ -52,16 +52,17 @@ class Admin::RanksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_rank
-      @admin_rank = Rank.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def admin_rank_params
-      params.require(:rank).permit(
-        :rank,
-        :experience_point
-        )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_rank
+    @admin_rank = Rank.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def admin_rank_params
+    params.require(:rank).permit(
+      :rank,
+      :experience_point
+    )
+  end
 end

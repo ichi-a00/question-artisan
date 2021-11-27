@@ -1,5 +1,4 @@
 class Admin::AnswersController < ApplicationController
-
   def create
     @answer = Answer.new(answer_params)
     if @answer.save
@@ -39,5 +38,4 @@ class Admin::AnswersController < ApplicationController
   def answer_params
     params.require(:answer).permit(:question_id, :content, :is_correct, :order)
   end
-
 end

@@ -1,5 +1,4 @@
 class Question < ApplicationRecord
-
   validates :customer_id, presence: true, numericality: { only_integer: true }
   validates :title, presence: true, length: { maximum: 20 }
   validates :format, presence: true
@@ -17,9 +16,9 @@ class Question < ApplicationRecord
     choose_one: 1,    # 択一
     choose_multi: 2,  # 一文多答
     writing: 3,       # 記述
-    #letter_sort: 4,  # ならべかえ
-    #order: 5,        # 順番あて
-    #panel: 6,        # パネル
+    # letter_sort: 4,  # ならべかえ
+    # order: 5,        # 順番あて
+    # panel: 6,        # パネル
   }
 
   belongs_to :customer
@@ -30,38 +29,38 @@ class Question < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
-  #設問と答えを同時に登録する用(非推奨ではある)
+  # 設問と答えを同時に登録する用(非推奨ではある)
   accepts_nested_attributes_for :answers, allow_destroy: true, reject_if: :all_blank
 
-  #tag
+  # tag
   acts_as_taggable
 
-  #閲覧数
+  # 閲覧数
   is_impressionable counter_cache: true
 
   def correct_answer_rate
-    if self.answered_time == 0
+    if answered_time == 0
       0
     else
-      (self.correct_answered_time/self.answered_time.to_f*100).floor
+      (correct_answered_time / answered_time.to_f * 100).floor
     end
   end
 
   def correct_answers
-    self.answers.where(is_correct: true)
+    answers.where(is_correct: true)
   end
 
   def result?(customer)
-    #n+1問題対策
-    self.results.map(&:customer_id).include?(customer.id)
+    # n+1問題対策
+    results.map(&:customer_id).include?(customer.id)
   end
 
   def favorited_by?(customer)
-    #n+1問題対策
-    self.favorites.map(&:customer_id).include?(customer.id)
+    # n+1問題対策
+    favorites.map(&:customer_id).include?(customer.id)
   end
 
-  #csv import
+  # csv import
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       question = find_by(id: row["id"]) || new
@@ -77,18 +76,17 @@ class Question < ApplicationRecord
   def self.search(content, column)
     if content
       case column
-        when "nickname"
-          where(['customers.nickname LIKE(?)', "%#{content}%"])
-        when "title"
-          where(['title LIKE(?)', "%#{content}%"])
-        when "tag"
-          left_joins(:customer, :tags).where(['tags.name LIKE ?', "%#{content}%"])
-        else
-          left_joins(:customer, :tags).where(['title LIKE(?) OR customers.nickname LIKE(?) OR tags.name LIKE ?', "%#{content}%", "%#{content}%", "%#{content}%"]).distinct
+      when "nickname"
+        where(['customers.nickname LIKE(?)', "%#{content}%"])
+      when "title"
+        where(['title LIKE(?)', "%#{content}%"])
+      when "tag"
+        left_joins(:customer, :tags).where(['tags.name LIKE ?', "%#{content}%"])
+      else
+        left_joins(:customer, :tags).where(['title LIKE(?) OR customers.nickname LIKE(?) OR tags.name LIKE ?', "%#{content}%", "%#{content}%", "%#{content}%"]).distinct
       end
     else
       order(id: "desc")
     end
   end
-
 end

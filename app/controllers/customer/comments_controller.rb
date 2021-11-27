@@ -1,7 +1,6 @@
 class Customer::CommentsController < ApplicationController
   before_action :set_question_and_comments!
 
-
   def create
     @comment = @question.comments.new(comment_params)
     @comment.customer_id = current_customer.id
@@ -13,6 +12,7 @@ class Customer::CommentsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_question_and_comments!
     @question = Question.find(params[:question_id])
@@ -22,5 +22,4 @@ class Customer::CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:body)
   end
-
 end

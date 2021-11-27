@@ -4,4 +4,3 @@ FactoryBot.define do
     customer_id { 1 }
   end
 end
-
