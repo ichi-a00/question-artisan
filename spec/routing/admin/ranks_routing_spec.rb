@@ -18,7 +18,6 @@ RSpec.describe Admin::RanksController, type: :routing do
       expect(get: "/admin/ranks/1/edit").to route_to("admin/ranks#edit", id: "1")
     end
 
-
     it "routes to #create" do
       expect(post: "/admin/ranks").to route_to("admin/ranks#create")
     end

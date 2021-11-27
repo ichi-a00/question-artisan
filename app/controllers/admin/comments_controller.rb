@@ -1,10 +1,10 @@
 class Admin::CommentsController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_question_and_comments!
-
 
   def create
     @comment = @question.comments.new(comment_params)
-    #admin
+    # admin
     @comment.customer_id = 0
     @comment.save!
   end
@@ -14,6 +14,7 @@ class Admin::CommentsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_question_and_comments!
     @question = Question.find(params[:question_id])

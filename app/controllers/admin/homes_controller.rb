@@ -1,6 +1,8 @@
 class Admin::HomesController < ApplicationController
+  before_action :authenticate_admin!
+
   def top
-    #csv出力用
+    # csv出力用
     respond_to do |format|
       format.html
       format.csv do |csv|
@@ -21,8 +23,15 @@ class Admin::HomesController < ApplicationController
       header = %w(id customer_id title sentence format explanation)
       csv << header
       questions.each do |question|
-        #customer_id = admin
-        values = [question.id, 0, question.title, question.sentence, question.format, question.explanation]
+        # customer_id = admin
+        values = [
+          question.id,
+          0,
+          question.title,
+          question.sentence,
+          question.format,
+          question.explanation,
+        ]
         csv << values
       end
     end
@@ -41,16 +50,15 @@ class Admin::HomesController < ApplicationController
     send_data(csv_data, filename: "answers.csv")
   end
 
-  #csv import
+  # csv import
   def question_import
     Question.import(params[:file])
     redirect_to admin_root_path, notice: "Questions were successfully imported."
   end
 
-  #csv import
+  # csv import
   def answer_import
     Answer.import(params[:file])
     redirect_to admin_root_path, notice: "Answers wewe successfully imported."
   end
-
 end

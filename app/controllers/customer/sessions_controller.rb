@@ -24,7 +24,7 @@ class Customer::SessionsController < Devise::SessionsController
   def check_customer_status
     @customer = Customer.find_by(nickname: params[:customer][:nickname])
     return if !@customer
-    if (@customer.valid_password?(params[:customer][:password])) && (@customer.is_valid == false)
+    if @customer.valid_password?(params[:customer][:password]) && (@customer.is_valid == false)
       flash[:alert] = "このアカウントは退会済みです。"
       redirect_to new_customer_session_path
     end

@@ -1,5 +1,6 @@
 class Admin::RanksController < ApplicationController
-  before_action :set_admin_rank, only: %i[ show edit update destroy ]
+  before_action :authenticate_admin!
+  before_action :set_admin_rank, only: %i(show edit update destroy)
 
   # GET /admin/ranks or /admin/ranks.json
   def index
@@ -25,7 +26,10 @@ class Admin::RanksController < ApplicationController
 
     respond_to do |format|
       if @admin_rank.save
-        format.html { redirect_to admin_rank_path(@admin_rank), notice: "Rank was successfully created." }
+        format.html do
+          redirect_to admin_rank_path(@admin_rank),
+          notice: "Rank was successfully created."
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -36,7 +40,10 @@ class Admin::RanksController < ApplicationController
   def update
     respond_to do |format|
       if @admin_rank.update(admin_rank_params)
-        format.html { redirect_to admin_rank_path(@admin_rank), notice: "Rank was successfully updated." }
+        format.html do
+          redirect_to admin_rank_path(@admin_rank),
+          notice: "Rank was successfully updated."
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -52,16 +59,17 @@ class Admin::RanksController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_rank
-      @admin_rank = Rank.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def admin_rank_params
-      params.require(:rank).permit(
-        :rank,
-        :experience_point
-        )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_admin_rank
+    @admin_rank = Rank.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def admin_rank_params
+    params.require(:rank).permit(
+      :rank,
+      :experience_point
+    )
+  end
 end

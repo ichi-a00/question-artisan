@@ -8,7 +8,8 @@ class Customer::CustomersController < ApplicationController
   def show
     @customer = Customer.find(params[:id])
     if customer_signed_in?
-      @questions = @customer.questions.includes(:tags, :favorites, :results).page(params[:page]).per(10)
+      @questions = @customer.questions.
+        includes(:tags, :favorites, :results).page(params[:page]).per(10)
     else
       @questions = @customer.questions.includes(:tags).page(params[:page]).per(10)
     end
@@ -23,7 +24,8 @@ class Customer::CustomersController < ApplicationController
 
   def update
     if current_customer.update(customer_params)
-      redirect_to customer_path(current_customer), notice: "Your account has been updated successfully."
+      redirect_to customer_path(current_customer),
+      notice: "Your account has been updated successfully."
     else
       render :edit
     end
@@ -43,5 +45,4 @@ class Customer::CustomersController < ApplicationController
   def customer_params
     params.require(:customer).permit(:nickname, :email, :introduction, :image)
   end
-
 end

@@ -1,4 +1,5 @@
 class Customer::FavoritesController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_question!
 
   def create
@@ -12,6 +13,7 @@ class Customer::FavoritesController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_question!
     @question = Question.find(params[:question_id])
