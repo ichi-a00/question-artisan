@@ -1,8 +1,11 @@
 class Admin::AnswersController < ApplicationController
+  before_action :authenticate_admin!
+  
   def create
     @answer = Answer.new(answer_params)
     if @answer.save
-      redirect_to edit_admin_question_path(@answer.question_id), notice: "Answer was successfully created."
+      redirect_to edit_admin_question_path(@answer.question_id),
+      notice: "Answer was successfully created."
     else
       @question = Question.find(@answer.question_id)
       @formats = Question.formats
@@ -18,7 +21,8 @@ class Admin::AnswersController < ApplicationController
   def update
     @answer = Answer.find(params[:id])
     if @answer.update(answer_params)
-      redirect_to edit_admin_question_path(@answer.question_id), notice: "Answer was successfully updated."
+      redirect_to edit_admin_question_path(@answer.question_id),
+      notice: "Answer was successfully updated."
     else
       @question = Question.find(@answer.question_id)
       @formats = Question.formats
@@ -30,7 +34,8 @@ class Admin::AnswersController < ApplicationController
   def destroy
     @answer = Answer.find(params[:id])
     @answer.destroy
-    redirect_to edit_admin_question_path(@answer.question_id), notice: "Answer was successfully destroyed."
+    redirect_to edit_admin_question_path(@answer.question_id),
+    notice: "Answer was successfully destroyed."
   end
 
   private

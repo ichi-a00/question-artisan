@@ -1,4 +1,5 @@
 class Customer::CommentsController < ApplicationController
+  before_action :authenticate_customer!
   before_action :set_question_and_comments!
 
   def create

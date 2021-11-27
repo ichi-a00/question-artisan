@@ -1,4 +1,5 @@
 class Admin::RanksController < ApplicationController
+  before_action :authenticate_admin!
   before_action :set_admin_rank, only: %i(show edit update destroy)
 
   # GET /admin/ranks or /admin/ranks.json
@@ -25,7 +26,10 @@ class Admin::RanksController < ApplicationController
 
     respond_to do |format|
       if @admin_rank.save
-        format.html { redirect_to admin_rank_path(@admin_rank), notice: "Rank was successfully created." }
+        format.html do
+          redirect_to admin_rank_path(@admin_rank),
+          notice: "Rank was successfully created."
+        end
       else
         format.html { render :new, status: :unprocessable_entity }
       end
@@ -36,7 +40,10 @@ class Admin::RanksController < ApplicationController
   def update
     respond_to do |format|
       if @admin_rank.update(admin_rank_params)
-        format.html { redirect_to admin_rank_path(@admin_rank), notice: "Rank was successfully updated." }
+        format.html do
+          redirect_to admin_rank_path(@admin_rank),
+          notice: "Rank was successfully updated."
+        end
       else
         format.html { render :edit, status: :unprocessable_entity }
       end

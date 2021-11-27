@@ -1,4 +1,6 @@
 class Admin::HomesController < ApplicationController
+  before_action :authenticate_admin!
+
   def top
     # csv出力用
     respond_to do |format|
@@ -22,7 +24,14 @@ class Admin::HomesController < ApplicationController
       csv << header
       questions.each do |question|
         # customer_id = admin
-        values = [question.id, 0, question.title, question.sentence, question.format, question.explanation]
+        values = [
+          question.id,
+          0,
+          question.title,
+          question.sentence,
+          question.format,
+          question.explanation,
+        ]
         csv << values
       end
     end

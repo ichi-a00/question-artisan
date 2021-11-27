@@ -83,7 +83,11 @@ class Question < ApplicationRecord
       when "tag"
         left_joins(:customer, :tags).where(['tags.name LIKE ?', "%#{content}%"])
       else
-        left_joins(:customer, :tags).where(['title LIKE(?) OR customers.nickname LIKE(?) OR tags.name LIKE ?', "%#{content}%", "%#{content}%", "%#{content}%"]).distinct
+        left_joins(:customer, :tags).
+          where([
+            'title LIKE(?) OR customers.nickname LIKE(?) OR tags.name LIKE ?',
+            "%#{content}%", "%#{content}%", "%#{content}%",
+          ]).distinct
       end
     else
       order(id: "desc")

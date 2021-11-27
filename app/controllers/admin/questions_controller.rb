@@ -1,6 +1,6 @@
 class Admin::QuestionsController < ApplicationController
-  before_action :set_question!, only: %i(show edit update destroy)
   before_action :authenticate_admin!
+  before_action :set_question!, only: %i(show edit update destroy)
   before_action :set_format!, only: [:new, :create, :edit, :update]
 
   # GET /questions
@@ -57,7 +57,16 @@ class Admin::QuestionsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def question_params
-    params.require(:question).permit(:customer_id, :title, :sentence, :format, :explanation, :question_image, :answer_image, :answered_time, :correct_answered_time)
+    params.require(:question).
+      permit(:customer_id,
+    :title,
+    :sentence,
+    :format,
+    :explanation,
+    :question_image,
+    :answer_image,
+    :answered_time,
+    :correct_answered_time)
   end
 
   def set_format!

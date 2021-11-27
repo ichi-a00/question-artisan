@@ -1,6 +1,7 @@
 class Customer::QuestionsController < ApplicationController
   before_action :set_question!, only: %i(show edit update destroy artisan result)
-  before_action :authenticate_customer!, except: [:index, :show, :artisan, :result, :search, :alltags]
+  before_action :authenticate_customer!,
+  except: [:index, :show, :artisan, :result, :search, :alltags]
   before_action :ensure_correct_customer!, only: [:show, :edit, :update, :destroy]
   before_action :set_format!, only: [:new, :create, :edit, :update, :answer_format]
   before_action :initialize_answer, only: [:new, :answer_format]
@@ -10,7 +11,8 @@ class Customer::QuestionsController < ApplicationController
     @content = params[:content]
     @column = params[:column]
     if customer_signed_in?
-      @questions = Question.includes(:tags, :favorites, :results).search(@content, @column).page(params[:page]).per(10)
+      @questions = Question.includes(:tags, :favorites, :results).
+        search(@content, @column).page(params[:page]).per(10)
     else
       @questions = Question.includes(:tags).search(@content, @column).page(params[:page]).per(10)
     end
