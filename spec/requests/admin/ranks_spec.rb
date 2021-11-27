@@ -12,9 +12,9 @@
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/ranks", type: :request do
+RSpec.describe "/admin/ranks", type: :request do
   
-  # Rank. As you add validations to Rank, be sure to
+  # Admin::Rank. As you add validations to Admin::Rank, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
@@ -26,58 +26,58 @@ RSpec.describe "/ranks", type: :request do
 
   describe "GET /index" do
     it "renders a successful response" do
-      Rank.create! valid_attributes
-      get ranks_url
+      Admin::Rank.create! valid_attributes
+      get admin_ranks_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /show" do
     it "renders a successful response" do
-      rank = Rank.create! valid_attributes
-      get rank_url(rank)
+      rank = Admin::Rank.create! valid_attributes
+      get admin_rank_url(admin_rank)
       expect(response).to be_successful
     end
   end
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_rank_url
+      get new_admin_rank_url
       expect(response).to be_successful
     end
   end
 
   describe "GET /edit" do
     it "render a successful response" do
-      rank = Rank.create! valid_attributes
-      get edit_rank_url(rank)
+      rank = Admin::Rank.create! valid_attributes
+      get edit_admin_rank_url(admin_rank)
       expect(response).to be_successful
     end
   end
 
   describe "POST /create" do
     context "with valid parameters" do
-      it "creates a new Rank" do
+      it "creates a new Admin::Rank" do
         expect {
-          post ranks_url, params: { rank: valid_attributes }
-        }.to change(Rank, :count).by(1)
+          post admin_ranks_url, params: { admin_rank: valid_attributes }
+        }.to change(Admin::Rank, :count).by(1)
       end
 
-      it "redirects to the created rank" do
-        post ranks_url, params: { rank: valid_attributes }
-        expect(response).to redirect_to(rank_url(Rank.last))
+      it "redirects to the created admin_rank" do
+        post admin_ranks_url, params: { admin_rank: valid_attributes }
+        expect(response).to redirect_to(admin_rank_url(@admin_rank))
       end
     end
 
     context "with invalid parameters" do
-      it "does not create a new Rank" do
+      it "does not create a new Admin::Rank" do
         expect {
-          post ranks_url, params: { rank: invalid_attributes }
-        }.to change(Rank, :count).by(0)
+          post admin_ranks_url, params: { admin_rank: invalid_attributes }
+        }.to change(Admin::Rank, :count).by(0)
       end
 
       it "renders a successful response (i.e. to display the 'new' template)" do
-        post ranks_url, params: { rank: invalid_attributes }
+        post admin_ranks_url, params: { admin_rank: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -89,42 +89,42 @@ RSpec.describe "/ranks", type: :request do
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested rank" do
-        rank = Rank.create! valid_attributes
-        patch rank_url(rank), params: { rank: new_attributes }
+      it "updates the requested admin_rank" do
+        rank = Admin::Rank.create! valid_attributes
+        patch admin_rank_url(admin_rank), params: { admin_rank: new_attributes }
         rank.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the rank" do
-        rank = Rank.create! valid_attributes
-        patch rank_url(rank), params: { rank: new_attributes }
+      it "redirects to the admin_rank" do
+        rank = Admin::Rank.create! valid_attributes
+        patch admin_rank_url(admin_rank), params: { admin_rank: new_attributes }
         rank.reload
-        expect(response).to redirect_to(rank_url(rank))
+        expect(response).to redirect_to(admin_rank_url(rank))
       end
     end
 
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
-        rank = Rank.create! valid_attributes
-        patch rank_url(rank), params: { rank: invalid_attributes }
+        rank = Admin::Rank.create! valid_attributes
+        patch admin_rank_url(admin_rank), params: { admin_rank: invalid_attributes }
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested rank" do
-      rank = Rank.create! valid_attributes
+    it "destroys the requested admin_rank" do
+      rank = Admin::Rank.create! valid_attributes
       expect {
-        delete rank_url(rank)
-      }.to change(Rank, :count).by(-1)
+        delete admin_rank_url(admin_rank)
+      }.to change(Admin::Rank, :count).by(-1)
     end
 
-    it "redirects to the ranks list" do
-      rank = Rank.create! valid_attributes
-      delete rank_url(rank)
-      expect(response).to redirect_to(ranks_url)
+    it "redirects to the admin_ranks list" do
+      rank = Admin::Rank.create! valid_attributes
+      delete admin_rank_url(admin_rank)
+      expect(response).to redirect_to(admin_ranks_url)
     end
   end
 end

@@ -1,5 +1,3 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Customers</h1>
 
 <table>
@@ -30,5 +28,6 @@
         <td><%= link_to 'Edit', edit_admin_customer_path(customer) %></td>
       </tr>
     <% end %>
+    <%= paginate @customers %>
   </tbody>
 </table>

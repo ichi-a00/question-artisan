@@ -7,16 +7,17 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root to: 'homes#top'
+    post 'homes/question_import'
+    post 'homes/answer_import'
 
     resources :customers, except: [:new, :create, :destroy]
     resources :questions do
-      collection do
-        post 'import'
-      end
       member do
         resources :answers, only: [:edit, :create, :update, :destroy]
       end
+      resources :comments, only: [:create, :destroy]
     end
+    resources :ranks
   end
 
   devise_for :customers, skip: :all
@@ -65,7 +66,5 @@ Rails.application.routes.draw do
       resource :favorites, only: [:create, :destroy]
     end
   end
-
-  resources :ranks
 
 end

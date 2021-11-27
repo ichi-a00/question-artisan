@@ -1,5 +1,5 @@
 <h1>Questions</h1>
-
+<%= link_to 'New Question', new_admin_question_path, class:"btn btn-success" %>
 <table>
   <thead>
     <tr>
@@ -24,8 +24,8 @@
         <td><%= question.sentence %></td>
         <td><%= question.format %></td>
         <td><%= question.explanation %></td>
-        <td><%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg" %></td>
-        <td><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg" %></td>
+        <td><%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg", size: "100*100" %></td>
+        <td><%= attachment_image_tag question, :answer_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg", size: "100*100" %></td>
         <td><%= question.answered_time %></td>
         <td><%= question.correct_answered_time %></td>
         <td><%= link_to 'Show', admin_question_path(question) %></td>
@@ -33,18 +33,6 @@
         <td><%= link_to 'Destroy', admin_question_path(question), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
-    <% paginate @questions %>
+    <%= paginate @questions %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Question', new_admin_question_path %>
-
-<br>
-<%= form_with url: import_admin_questions_path, html: { method: :post, multipart: true } do |f| %>
-  <%= f.file_field :file %>
-  <%= f.submit "import csv", class:"btn btn-success" %>
-<% end %>
-<br>
-<%= link_to "export csv", admin_questions_path(format: :csv) %>
