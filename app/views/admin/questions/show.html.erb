@@ -54,6 +54,31 @@
   <%= @question.correct_answered_time %>
 </p>
 
+<h4 class="my-3">コメント一覧(<%= @question.comments.size %>)</h4>
+
+<div class="mt-3 mb-4">
+  <%= form_with(model:[:admin, @question, Comment.new], id: "create_comment", remote: true) do |f| %>
+    <div class="mt-2"><%= f.text_area :body, size: "35*3",  placeholder: "コメント", class:"new-comment" %></div>
+    <div><%= f.submit class:"btn btn-success" %></div>
+  <% end %>
+</div>
+
+<div class="my-3" id="">
+  <table class="table">
+    <thead class="">
+      <tr>
+        <th>ユーザー</th>
+        <th>内容</th>
+        <th>時間</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody class="comment">
+      <%= render 'admin/comments/comment', comments: @comments %>
+    </tbody>
+  </table>
+</div>
+
 
 
 <%= link_to 'Edit', edit_admin_question_path(@question) %> |

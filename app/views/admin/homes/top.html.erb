@@ -1,1 +1,21 @@
-admin top
+<h1>Question Artisan -Admin Mode-</h1>
+
+<div class="m-5">
+  <h3>Question import/export</h4>
+  <%= form_with url: admin_homes_question_import_path, html: { method: :post, multipart: true } do |f| %>
+    <%= f.file_field :file %>
+    <%= f.submit "import questions csv", class:"btn btn-primary" %>
+  <% end %>
+  <br>
+  <%= link_to "export Q csv", admin_root_path(format: :csv, :type => "question"), class:"btn btn-danger" %>
+</div>
+
+<div class="m-5">
+  <h3>Answer import/export</h4>
+  <%= form_with url: admin_homes_answer_import_path, html: { method: :post, multipart: true } do |f| %>
+    <%= f.file_field :file %>
+    <%= f.submit "import answers csv", class:"btn btn-primary" %>
+  <% end %>
+  <br>
+  <%= link_to "export A csv", admin_root_path(format: :csv, :type => "answer"), class:"btn btn-danger" %>
+</div>
