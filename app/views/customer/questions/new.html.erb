@@ -1,7 +1,7 @@
 <h1>New Question and Answers</h1>
 <h4>Step1, 問題形式を選択して下さい。作成後は変更できません。</h4>
 <% @formats.each do |f| %>
-  <%= link_to f[0], send("answer_format_questions_path", format: f[0]), class:"badge bg-dark text-light", remote: true %>
+  <%= link_to f[0], send("answer_format_questions_path", format: f[0]), class:"badge text-light format_#{f[0]}", remote: true %>
 <% end %>
 
 <h4 class="mt-5">Step2, 必要事項を記入して下さい。</h4>
