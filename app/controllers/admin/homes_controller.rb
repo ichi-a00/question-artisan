@@ -2,12 +2,13 @@ class Admin::HomesController < ApplicationController
   before_action :authenticate_admin!
 
   def top
+    @questions = Question.all
+    @customers = Customer.where(is_valid: true)
     # csv出力用
     respond_to do |format|
       format.html
       format.csv do |csv|
         if params[:type] == "question"
-          @questions = Question.all
           question_export(@questions)
         elsif params[:type] == "answer"
           @answers = Answer.all

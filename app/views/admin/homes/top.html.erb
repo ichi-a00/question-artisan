@@ -1,21 +1,38 @@
 <h1>Question Artisan -Admin Mode-</h1>
 
-<div class="m-5">
-  <h3>Question import/export</h4>
-  <%= form_with url: admin_homes_question_import_path, html: { method: :post, multipart: true } do |f| %>
-    <%= f.file_field :file %>
-    <%= f.submit "import questions csv", class:"btn btn-primary" %>
-  <% end %>
-  <br>
-  <%= link_to "export Q csv", admin_root_path(format: :csv, :type => "question"), class:"btn btn-danger" %>
+<div class="row justify-content-center h-100">
+  <div class="col-sm-5 border shadow p-3 rounded bg-light m-3">
+    <h3 class="mb-4">問題数</h3>
+    <%= @questions.size %>
+  </div>
+  <div class="col-sm-5 border shadow p-3 rounded bg-light m-3">
+    <h3 class="mb-4">有効ユーザー数</h3>
+    <%= @customers.size %>
+  </div>
 </div>
 
-<div class="m-5">
-  <h3>Answer import/export</h4>
-  <%= form_with url: admin_homes_answer_import_path, html: { method: :post, multipart: true } do |f| %>
-    <%= f.file_field :file %>
-    <%= f.submit "import answers csv", class:"btn btn-primary" %>
-  <% end %>
-  <br>
-  <%= link_to "export A csv", admin_root_path(format: :csv, :type => "answer"), class:"btn btn-danger" %>
+<div class="row justify-content-center h-100">
+  <div class="col-sm-5 border shadow p-3 rounded bg-light m-3">
+    <h3 class="mb-4">Question import/export</h3>
+    <%= form_with url: admin_homes_question_import_path, html: { method: :post, multipart: true } do |f| %>
+      <%= f.file_field :file %>
+      <div class="my-3">
+        <%= f.submit "import questions csv", class:"btn btn-primary" %>
+      </div>
+    <% end %>
+    <br>
+    <%= link_to "export Q csv", admin_root_path(format: :csv, :type => "question"), class:"btn btn-danger" %>
+  </div>
+
+  <div class="col-sm-5 border shadow p-3 rounded bg-light m-3">
+    <h3 class="mb-4">Answer import/export</h3>
+    <%= form_with url: admin_homes_answer_import_path, html: { method: :post, multipart: true } do |f| %>
+      <%= f.file_field :file %>
+      <div class="my-3">
+        <%= f.submit "import answers csv", class:"btn btn-primary" %>
+      </div>
+    <% end %>
+    <br>
+    <%= link_to "export A csv", admin_root_path(format: :csv, :type => "answer"), class:"btn btn-danger" %>
+  </div>
 </div>

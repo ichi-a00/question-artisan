@@ -2,7 +2,7 @@ class Customer::CustomersController < ApplicationController
   before_action :authenticate_customer!, except: [:index, :show]
 
   def index
-    @customers = Customer.order(rank: "desc").page(params[:page]).per(10)
+    @customers = Customer.where(is_valid: true).order(rank: "desc").page(params[:page]).per(10)
   end
 
   def show
@@ -37,7 +37,8 @@ class Customer::CustomersController < ApplicationController
   def withdraw
     current_customer.update_attribute(:is_valid, false)
     reset_session
-    redirect_to root_path, notice: "退会しました。"
+    flash[:alert] = '退会しました。'
+    redirect_to root_path
   end
 
   private
