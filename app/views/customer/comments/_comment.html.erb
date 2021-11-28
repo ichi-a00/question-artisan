@@ -2,7 +2,7 @@
   <tr>
     <td>
       <%= link_to customer_path(com.customer) do %>
-        <%= attachment_image_tag com.customer, :image, :fill, 60, 60, format: 'jpg', fallback: "no_image.jpg", size: "60*60" %></br>
+        <%= attachment_image_tag com.customer, :image, :fill, 60, 60, format: 'jpg', fallback: "no_image.jpg", size:'60x60' %></br>
         <%= com.customer.nickname %>
       <% end %>
     </td>
