@@ -1,6 +1,6 @@
 class Admin::AnswersController < ApplicationController
   before_action :authenticate_admin!
-  
+
   def create
     @answer = Answer.new(answer_params)
     if @answer.save
