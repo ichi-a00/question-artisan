@@ -1,3 +1,51 @@
-<h1>New Questions</h1>
-
-<%= render "customer/questions/list", questions: @questions %>
+<div class="row m-1 rounded text-dark" id="customer_top">
+  <div class="col-md-12 d-flex align-items-center justify-content-center">
+    <div>
+      <h1 class="text-center m-4">Question Artisan</h1>
+      <div class="text-center bg-light text-dark border border-dark rounded m-5 p-3">
+        <p>オリジナルのクイズ[=設問]を作って解くことができるサイトです。</p>
+        <p>設問の形式は○×、４択、並び替え、記述です。今後種類を増やす予定です。</p>
+        <p>会員登録したユーザはランクと経験値が管理でき、<br>
+        ランクに応じてサイト内で表彰されたり、新しい設問の形式が解放されたりする予定です。</p>
+        <p>他のユーザの設問を解いたり、自分の設問が解かれたりで経験値を貯めることができます。</p>
+        <p class="mb-0">受験・試験勉強、備忘録、知識欲の肥やしなどにぜひご利用ください。</p>
+      </div>
+      <div class="d-flex justify-content-center">
+        <%= link_to artisan_question_path(Question.all.offset(rand(Question.all.count)).first),
+        class: 'fas fa-utensils nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+          Artisan
+          <p class="m-1">設問に挑戦します。設問はランダムに選ばれます。</p>
+        <% end %>
+        <%= link_to questions_path, class: 'fas fa-question-circle nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+          設問検索
+          <p class="m-1">設問をタグやキーワードで検索できます。</p>
+        <% end %>
+        <%= link_to customers_path, class: 'fas fa-crown nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+          ランキング
+          <p class="m-1">ユーザーをランク順に表示します。</p>
+        <% end %>
+      </div>
+      <div class="d-flex justify-content-center">
+        <% if customer_signed_in? %>
+          <%= link_to new_question_path, class: 'fas fa-edit nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+            設問作成
+            <p class="m-1">設問を作成できます。</p>
+          <% end %>
+          <%= link_to customer_path(current_customer), class: 'fas fa-user nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+            マイページ
+            <p class="m-1">プロフィールの変更や退会処理ができます。</p>
+          <% end %>
+          <%= link_to destroy_customer_session_path, method: :delete, class: 'fas fa-leaf nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+            ログアウト
+            <p class="m-1">またお会いしましょう。</p>
+          <% end %>
+        <% else %>
+          <%= link_to new_customer_session_path, class: 'fas fa-blog nav-link text-dark w-25 bg-light rounded m-2 shadow' do %>
+            ログイン
+            <p class="m-1">ようこそ。新規登録もこちらから。</p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

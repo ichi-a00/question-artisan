@@ -1,5 +1,5 @@
 <h1>Artisan</h1>
-<div class="card bg-secondary mb-3">
+<div class="card bg-secondary mb-3 shadow">
   <div class="row no-gutters">
     <div class="col-md-2 card-header d-flex justify-content-center align-items-center">
       <%= attachment_image_tag @question, :question_image, :fill, 120, 120, format: 'jpg', fallback: "no_image_square.jpg", size:'120x120' %>
@@ -75,7 +75,7 @@
 </div>
 
 <div class="my-3" id="comments">
-  <table class="table">
+  <table class="table table-striped bg-light">
     <thead class="">
       <tr>
         <th>ユーザー</th>

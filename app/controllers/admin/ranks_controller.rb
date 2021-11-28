@@ -4,7 +4,7 @@ class Admin::RanksController < ApplicationController
 
   # GET /admin/ranks or /admin/ranks.json
   def index
-    @admin_ranks = Rank.all
+    @admin_ranks = Rank.all.page(params[:page]).per(50)
   end
 
   # GET /admin/ranks/1 or /admin/ranks/1.json

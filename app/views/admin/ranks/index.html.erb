@@ -1,6 +1,8 @@
-<h1>Admin Ranks</h1>
-
-<table>
+<div class="d-flex justify-content-between align-items-center">
+  <h1>Ranks</h1>
+  <%= link_to 'New Rank', new_admin_rank_path %>
+</div>
+<table class="table table-sm table-striped table-hover bg-light">
   <thead>
     <tr>
       <th>Rank</th>
@@ -21,7 +23,4 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Admin Rank', new_admin_rank_path %>
+<%= paginate @admin_ranks %>

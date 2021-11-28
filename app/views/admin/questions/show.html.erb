@@ -36,12 +36,12 @@
 
 <p>
   <strong>Question image:</strong>
-  <%= @question.question_image_id %>
+  <%= attachment_image_tag @question, :question_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg", size: "100*100" %>
 </p>
 
 <p>
   <strong>Answer image:</strong>
-  <%= @question.answer_image_id %>
+  <%= attachment_image_tag @question, :answer_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg", size: "100*100" %>
 </p>
 
 <p>

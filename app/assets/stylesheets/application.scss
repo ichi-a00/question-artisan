@@ -19,6 +19,18 @@
 @import 'font-awesome';
 
 body {
+  font-family: 'Avenir',
+               'Helvetica Neue',
+               'Helvetica',
+               'Arial',
+               'ヒラギノ角ゴ Pro W3',
+               'Hiragino Kaku Gothic Pro',
+               'メイリオ',
+               'Meiryo',
+               '游ゴシック',
+               'Yu Gothic',
+               'ＭＳ Ｐゴシック',
+               sans-serif;
   font-size: 1rem;
   letter-spacing: 0.05em;
   line-height: 1.2;
@@ -51,4 +63,8 @@ a:hover {
 
 .w10 {
   width: 10%;
+}
+
+#alert {
+  color: red;
 }
