@@ -31,6 +31,7 @@
       <div class="col-md-9 card-body bg-light text-dark">
         <div><%= attachment_image_tag question, :question_image, :fill, 120, 120, format: 'jpg', fallback: "no_image_square.jpg", size:'120x120' %></div>
         <div class="my-1"><%= form.attachment_field :question_image %></div>
+        <div class="my-2"><%= form.check_box :auto_tag_image, {}, true, false %> 画像からタグを自動生成する</div>
       </div>
     </div>
 
@@ -48,7 +49,7 @@
         <i class="fas fa-tags"></i><%= form.label :tags %>
       </div>
       <div class="col-md-9 card-body bg-light text-dark">
-        <span class="bg-light"><%= form.text_field :tag_list, value: question.tag_list.join(','), class:"tag_form" %></span>
+        <div class="bg-light"><%= form.text_field :tag_list, value: question.tag_list.join(','), class:"tag_form" %></div>
       </div>
     </div>
 
@@ -57,7 +58,8 @@
         <%= form.label :sentence %>
       </div>
       <div class="col-md-9 card-body bg-light text-dark">
-        <%= form.text_area :sentence, size:"50*4", placeholder:"問題文" %>
+        <div><%= form.text_area :sentence, size:"75*4", placeholder:"問題文" %></div>
+        <div class="my-2"><%= form.check_box :auto_tag_sentence, {}, true, false %> 問題文からタグを自動生成する</div>
       </div>
     </div>
 
@@ -93,7 +95,7 @@
         <%= form.label :explanation %>
       </div>
       <div class="col-md-9 card-body bg-light text-dark">
-        <%= form.text_area :explanation, placeholder: "解説", size:"50*4" %>
+        <%= form.text_area :explanation, placeholder: "解説", size:"75*4" %>
       </div>
     </div>
 

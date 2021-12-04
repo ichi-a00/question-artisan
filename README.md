@@ -46,8 +46,6 @@ Railsやjsを用いてビジュアルな設問が作成できたらと思いま�
 ## 設計書(ほぼ白紙)
 * ER図
   * <https://app.diagrams.net/#G1z1cflxcfQGZFKWsAFLgCXhxSzz5LynSB>
-* テーブル定義書
-  * <>
 * アプリケーション詳細設計
   * <https://docs.google.com/spreadsheets/d/1gt0_7H2x1fZQm0QYGcLEMBrqEkRq0FQXLj_4_9cA7VQ/edit#gid=0>
 * WBS
