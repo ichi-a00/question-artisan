@@ -34,7 +34,17 @@ class Customer::QuestionsController < ApplicationController
   # POST /questions
   def create
     @question = Question.new(question_params)
-    # inding.pry
+
+    # AI
+    @question.tag_list += Vision.get_image_data(@question.question_image) if params[:question][:auto_tag_image]
+    @question.tag_list += Language.get_entity(@question.sentence) if params[:question][:auto_tag_sentence]
+
+    # タグは10こまで
+    if @question.tag_list.size > ENV["MAX_TAGS"].to_i
+      @question.tag_list.pop(@question.tag_list.size - ENV["MAX_TAGS"].to_i)
+      flash[:alert] = "タグは10個までです。11個目以降は削除されました。"
+    end
+
     if @question.save
       redirect_to @question, notice: "Question was successfully created."
     else
@@ -46,6 +56,18 @@ class Customer::QuestionsController < ApplicationController
   def update
     # binding.pry
     if @question.update(question_params)
+
+      @question.tag_list += Vision.get_image_data(@question.question_image) if params[:question][:auto_tag_image]
+      @question.tag_list += Language.get_entity(@question.sentence) if params[:question][:auto_tag_sentence]
+
+      # タグは10こまで
+      if @question.tag_list.size > ENV["MAX_TAGS"].to_i
+        @question.tag_list.pop(@question.tag_list.size - ENV["MAX_TAGS"].to_i)
+        flash[:alert] = "タグは10個までです。11個目以降は削除されました。"
+      end
+
+      @question.save!
+
       redirect_to @question, notice: "Question was successfully updated."
     else
       render :edit, status: :unprocessable_entity

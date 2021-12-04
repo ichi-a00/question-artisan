@@ -27,6 +27,10 @@ class Admin::QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
+      tags = Language.get_entity(@question.sentence)
+      tags.each do |tag|
+        @question.tags.create(name: tag)
+      end
       redirect_to admin_question_path(@question), notice: "Question was successfully created."
     else
       render :new, status: :unprocessable_entity
