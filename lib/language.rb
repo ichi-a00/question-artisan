@@ -6,7 +6,7 @@ module Language
   class << self
     def get_sentiment(text)
       # APIのURL作成 感情分析
-      api_url = "https://language.googleapis.com/v1beta1/documents:analyzeSentiment?key=#{ENV['GOOGLE_API_KEY']}"
+      api_url = ENV['SENTIMENT']
       # APIリクエスト用のJSONパラメータ
       params = {
         document: {
@@ -33,7 +33,7 @@ module Language
 
     def get_entity(text)
       # エンティティ分析
-      api_url = "https://language.googleapis.com/v1beta1/documents:analyzeEntities?key=#{ENV['GOOGLE_API_KEY']}"
+      api_url = ENV['ENTITY']
       # APIリクエスト用のJSONパラメータ
       params = {
         document: {

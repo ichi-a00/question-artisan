@@ -35,17 +35,23 @@ class Customer::QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
-    # AI
-    @question.tag_list += Vision.get_image_data(@question.question_image) if params[:question][:auto_tag_image]
-    @question.tag_list += Language.get_entity(@question.sentence) if params[:question][:auto_tag_sentence]
+    if @question.save!
+      # AI
+      if params[:question][:auto_tag_image] && (params[:question][:question_image] != "{}")
+        @question.tag_list += Vision.get_image_data(@question.question_image)
+      end
+      if params[:question][:auto_tag_sentence]
+        @question.tag_list += Language.get_entity(@question.sentence)
+      end
 
-    # タグは10こまで
-    if @question.tag_list.size > ENV["MAX_TAGS"].to_i
-      @question.tag_list.pop(@question.tag_list.size - ENV["MAX_TAGS"].to_i)
-      flash[:alert] = "タグは10個までです。11個目以降は削除されました。"
-    end
+      # タグは10こまで
+      if @question.tag_list.size > ENV["MAX_TAGS"].to_i
+        @question.tag_list.pop(@question.tag_list.size - ENV["MAX_TAGS"].to_i)
+        flash[:alert] = "タグは10個までです。11個目以降は削除されました。"
+      end
 
-    if @question.save
+      @question.save!
+
       redirect_to @question, notice: "Question was successfully created."
     else
       render :new, status: :unprocessable_entity
@@ -54,11 +60,14 @@ class Customer::QuestionsController < ApplicationController
 
   # PATCH/PUT /questions/1
   def update
-    # binding.pry
     if @question.update(question_params)
 
-      @question.tag_list += Vision.get_image_data(@question.question_image) if params[:question][:auto_tag_image]
-      @question.tag_list += Language.get_entity(@question.sentence) if params[:question][:auto_tag_sentence]
+      if params[:question][:auto_tag_image]
+        @question.tag_list += Vision.get_image_data(@question.question_image)
+      end
+      if params[:question][:auto_tag_sentence]
+        @question.tag_list += Language.get_entity(@question.sentence)
+      end
 
       # タグは10こまで
       if @question.tag_list.size > ENV["MAX_TAGS"].to_i

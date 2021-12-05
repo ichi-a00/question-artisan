@@ -14,8 +14,8 @@
           <div class="mx-3">投稿数：<%= @customer.questions_count %></div>
           <div class="follow-btn-<%= @customer.id %> mx-1"><%= render "customer/follows/follow", customer: @customer %></div>
           <div class="">
-            <i class="fas fa-sign-out-alt fa-lg text-danger mx-1"></i><%= link_to @customer.following_count, followings_customer_follows_path(@customer), class:"btn btn-outline-danger" %>
-            <i class="fas fa-sign-in-alt fa-lg text-primary mx-1"></i><%= link_to @customer.followed_count, followers_customer_follows_path(@customer), class:"btn btn-outline-primary" %>
+            <i class="fas fa-sign-out-alt fa-lg text-danger mx-1">フォロー<%= link_to @customer.following_count, followings_customer_follows_path(@customer), class:"btn btn-outline-danger" %></i>
+            <i class="fas fa-sign-in-alt fa-lg text-primary mx-1">フォロワー<%= link_to @customer.followed_count, followers_customer_follows_path(@customer), class:"btn btn-outline-primary" %></i>
           </div>
         </div>
       </div>
