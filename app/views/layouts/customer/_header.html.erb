@@ -1,8 +1,8 @@
 <header class="header">
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <h1 class="site_logo">
-      <a href="/" class="navbar-brand">Question Artisan</a>
-    </h1>
+    <div class="site_logo">
+      <a href="/" class="navbar-brand"><%= image_tag "QAlogo.png", size: "133x60" %></a>
+    </div>
 
     <div class="text-light">
       <span class=""><%= attachment_image_tag current_customer, :image, :fill, 60, 60, format: 'jpg', fallback: "no_image.jpg", size:'60x60' %></span>
