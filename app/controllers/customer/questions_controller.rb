@@ -35,7 +35,7 @@ class Customer::QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
 
-    if @question.save!
+    if @question.save
       # AI
       if params[:question][:auto_tag_image] && (params[:question][:question_image] != "{}")
         @question.tag_list += Vision.get_image_data(@question.question_image)
@@ -50,7 +50,7 @@ class Customer::QuestionsController < ApplicationController
         flash[:alert] = "タグは10個までです。11個目以降は削除されました。"
       end
 
-      @question.save!
+      @question.save
 
       redirect_to @question, notice: "Question was successfully created."
     else
@@ -75,7 +75,7 @@ class Customer::QuestionsController < ApplicationController
         flash[:alert] = "タグは10個までです。11個目以降は削除されました。"
       end
 
-      @question.save!
+      @question.save
 
       redirect_to @question, notice: "Question was successfully updated."
     else
@@ -126,7 +126,7 @@ class Customer::QuestionsController < ApplicationController
       @question.correct_answered_time += 1
     end
     @question.answered_time += 1
-    @question.save!
+    @question.save
 
     # ユーザ登録済みなら、クリア状況と経験値更新
     if customer_signed_in?
@@ -140,7 +140,7 @@ class Customer::QuestionsController < ApplicationController
       if @correct
         result.is_cleared = true
       end
-      result.save!
+      result.save
 
       # 解く側の経験値
       if @correct
@@ -148,13 +148,13 @@ class Customer::QuestionsController < ApplicationController
       else
         current_customer.experience_point += ENV["INCORRECT_EXP"].to_i
       end
-      current_customer.save!
+      current_customer.save
       @rankup = current_customer.rankup?
 
       # 解かれた側の経験値
       if current_customer != @question.customer
         @question.customer.experience_point += ENV["ANSWERED_EXP"].to_i
-        @question.customer.save!
+        @question.customer.save
         @question.customer.rankup?
       end
     end

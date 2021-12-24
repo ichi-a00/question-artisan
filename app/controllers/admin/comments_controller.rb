@@ -6,7 +6,7 @@ class Admin::CommentsController < ApplicationController
     @comment = @question.comments.new(comment_params)
     # admin
     @comment.customer_id = 0
-    @comment.save!
+    @comment.save
   end
 
   def destroy

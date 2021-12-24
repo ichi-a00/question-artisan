@@ -65,7 +65,7 @@ class Question < ApplicationRecord
     CSV.foreach(file.path, headers: true) do |row|
       question = find_by(id: row["id"]) || new
       question.attributes = row.to_hash.slice(*updatable_attributes)
-      question.save!(validate: false)
+      question.save(validate: false)
     end
   end
 
@@ -81,7 +81,8 @@ class Question < ApplicationRecord
       when "title"
         where(['title LIKE(?)', "%#{content}%"])
       when "tag"
-        left_joins(:customer, :tags).where(['tags.name LIKE ?', "%#{content}%"])
+        #distinctで重複避ける
+        left_joins(:customer, :tags).where(['tags.name LIKE ?', "%#{content}%"]).distinct
       else
         left_joins(:customer, :tags).
           where([

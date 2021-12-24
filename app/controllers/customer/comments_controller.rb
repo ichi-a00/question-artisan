@@ -5,7 +5,7 @@ class Customer::CommentsController < ApplicationController
   def create
     @comment = @question.comments.new(comment_params)
     @comment.customer_id = current_customer.id
-    @comment.save!
+    @comment.save
   end
 
   def destroy
