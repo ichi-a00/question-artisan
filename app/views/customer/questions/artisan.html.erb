@@ -90,5 +90,7 @@
   </table>
 </div>
 
-<span class="mr-2"><%= link_to 'Edit', edit_question_path(@question), class:"fa fa-edit" %></span>
+<% if customer_signed_in? && @question.customer.id == current_customer.id %>
+  <span class="mr-2"><%= link_to 'Edit', edit_question_path(@question), class:"fa fa-edit" %></span>
+<% end %>
 <span class="mr-2"><%= link_to 'Back', questions_path, class:"fas fa-question-circle" %></span>

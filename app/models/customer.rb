@@ -45,7 +45,7 @@ class Customer < ApplicationRecord
       self.rank += 1
       self.exp_from = Rank.find_by(rank: self.rank).experience_point
       self.exp_to = Rank.find_by(rank: self.rank + 1).experience_point
-      save!
+      save
     else
       false
     end

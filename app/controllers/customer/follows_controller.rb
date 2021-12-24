@@ -5,7 +5,7 @@ class Customer::FollowsController < ApplicationController
   # フォローする人：current_customer.id, フォローされる人：params[:customer_id]
   def create
     follow = Follow.new(following_id: current_customer.id, followed_id: @customer.id)
-    follow.save!
+    follow.save
     # artisanのresult画面から来たときだけ非同期
     unless URI(request.referer.to_s).path.include?("/artisan")
       redirect_back(fallback_location: root_path)

@@ -11,7 +11,7 @@ class Answer < ApplicationRecord
     CSV.foreach(file.path, headers: true) do |row|
       answer = find_by(id: row["id"]) || new
       answer.attributes = row.to_hash.slice(*updatable_attributes)
-      answer.save!(validate: false)
+      answer.save(validate: false)
     end
   end
 
