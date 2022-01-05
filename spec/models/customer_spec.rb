@@ -2,13 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe Customer, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
-  it "姓、名を登録すると、姓名が取得できること" do
-    customer = Customer.new(
-        nickname: "taro",
-        email: "taro@test.com",
-        password: "tarotaro"
-    )
-    expect(customer.nickname).to eq "taro"
+  #pending "add some examples to (or delete) #{__FILE__}"
+  it "ユーザー登録" do
+    expect(FactoryBot.build(:customer)).to be_valid
+    #expect(customer.nickname).to eq "tarvo"
   end
+  
+  it
 end
