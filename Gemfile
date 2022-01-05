@@ -42,6 +42,8 @@ group :development, :test do
   gem 'faker'
   gem 'gimei'
   gem 'factory_bot_rails'
+  gem "bullet"
+  gem 'rubocop-airbnb'
 end
 
 group :development do
@@ -51,8 +53,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "bullet"
-  gem 'rubocop-airbnb'
 end
 
 group :test do
@@ -61,6 +61,7 @@ group :test do
   gem 'selenium-webdriver'
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'rspec-rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -75,7 +76,6 @@ gem 'jquery-rails'
 gem 'bootstrap', '~> 4.5'
 gem 'font-awesome-sass', '~> 5.13'
 gem 'pry-byebug'
-gem 'rspec-rails'
 gem 'enum_help'
 gem "cocoon"
 gem 'acts-as-taggable-on', '~> 6.0'
