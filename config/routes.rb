@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
   scope module: :customer do
     root to: 'homes#top'
-    get '/about' => 'homes#about'
+    #get '/homes/top' => 'homes#top'
 
     resources :customers, only: [:edit, :update, :show, :index] do
       collection do
