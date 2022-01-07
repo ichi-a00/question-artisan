@@ -196,7 +196,7 @@ class Customer::QuestionsController < ApplicationController
   end
 
   def set_format!
-    @formats = Question.formats
+    @formats = Question.formats_i18n
   end
 
   def initialize_answer
