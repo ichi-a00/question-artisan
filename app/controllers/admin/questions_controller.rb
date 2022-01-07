@@ -74,6 +74,6 @@ class Admin::QuestionsController < ApplicationController
   end
 
   def set_format!
-    @formats = Question.formats
+    @formats = Question.formats_i18n
   end
 end

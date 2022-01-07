@@ -23,7 +23,7 @@
         <td><%= question.customer.nickname %></td>
         <td><%= question.title %></td>
         <td><%= question.sentence %></td>
-        <td><%= question.format %></td>
+        <td><%= question.format_i18n %></td>
         <td><%= question.explanation %></td>
         <td><%= attachment_image_tag question, :question_image, :fill, 100, 100, format: 'jpg', fallback: "no_image.jpg", size: "100*100" %></td>
         <td><%= question.answered_time %></td>

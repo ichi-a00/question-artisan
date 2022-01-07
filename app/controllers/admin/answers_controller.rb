@@ -8,7 +8,7 @@ class Admin::AnswersController < ApplicationController
       notice: "Answer was successfully created."
     else
       @question = Question.find(@answer.question_id)
-      @formats = Question.formats
+      @formats = Question.formats_i18n
       flash[:alert] = 'error!'
       render template: "admin/questions/edit", status: :unprocessable_entity
     end
@@ -25,7 +25,7 @@ class Admin::AnswersController < ApplicationController
       notice: "Answer was successfully updated."
     else
       @question = Question.find(@answer.question_id)
-      @formats = Question.formats
+      @formats = Question.formats_i18n
       flash[:alert] = 'error!'
       render template: "admin/questions/edit", status: :unprocessable_entity
     end
